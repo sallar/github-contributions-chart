@@ -18,7 +18,8 @@ class App extends Component {
     });
   };
 
-  handleSubmit = () => {
+  handleSubmit = (e) => {
+    e.preventDefault();
     this.setState({ loading: true });
     fetch(`https://github-contributions-api.now.sh/v1/${this.state.username}`)
       .then(res => res.json())
@@ -35,12 +36,16 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <input
-            onChange={this.handleUsernameChange}
-            value={this.state.username}
-          />
-          <button onClick={this.handleSubmit}>Load</button>
+          <h1>Github Contributions Chart Generator</h1>
+          <h4>All your contributions in one image!</h4>
+          <form onSubmit={this.handleSubmit}>
+            <input
+            placeholder="Your github username"
+              onChange={this.handleUsernameChange}
+              value={this.state.username}
+            />
+            <button type="submit">✨ Generate!</button>
+          </form>
         </header>
         {this.state.loading && <p className="App-intro">Loading</p>}
         {this.state.data !== null &&
