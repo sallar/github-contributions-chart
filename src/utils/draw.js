@@ -96,12 +96,10 @@ function drawMetaData(ctx, username, width, height) {
 
 export function drawContributions(canvas, data, username) {
   const height = data.years.length * yearHeight + canvasMargin + headerHeight;
-  const width = 54 * (boxWidth + boxMargin) + canvasMargin * 2;
+  const width = 53 * (boxWidth + boxMargin) + canvasMargin * 2;
 
   canvas.width = width * scaleFactor;
   canvas.height = height * scaleFactor;
-  // canvas.style.width = `${width}px`;
-  // canvas.style.height = `${height}px`;
 
   const ctx = canvas.getContext("2d");
   ctx.scale(scaleFactor, scaleFactor);
