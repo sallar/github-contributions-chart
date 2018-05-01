@@ -71,7 +71,9 @@ function drawYear(ctx, year, offsetX = 0, offsetY = 0, data) {
   ctx.fillStyle = "#000000";
   ctx.font = `10px '${fontFace}'`;
   ctx.fillText(
-    `${year.year}: ${count} Contribution${year.total === 1 ? "" : "s"}`,
+    `${year.year}: ${count} Contribution${year.total === 1 ? "" : "s"}${
+      thisYear === year.year ? " (so far)" : ""
+    }`,
     offsetX,
     offsetY
   );
