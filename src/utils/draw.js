@@ -15,9 +15,14 @@ const yearHeight = textHeight + (boxWidth + boxMargin) * 7 + canvasMargin;
 const scaleFactor = window.devicePixelRatio || 1;
 
 function drawYear(ctx, year, offsetX = 0, offsetY = 0, data) {
-  const today = moment(year.range.end);
-  const start = moment(year.range.start).day(-1);
+  const thisYear = moment().format("YYYY");
+  const today = year.year === thisYear ? moment() : moment(year.range.end);
+  const start = moment(`${year.year}-01-01`);
   const firstDate = start.clone();
+
+  if (firstDate.day() !== 6) {
+    firstDate.day(-(firstDate.day() + 1 % 7));
+  }
 
   const nextDate = firstDate.clone();
   const firstRowDates = [];
