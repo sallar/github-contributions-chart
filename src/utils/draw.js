@@ -81,7 +81,7 @@ function drawYear(ctx, year, offsetX = 0, offsetY = 0, data) {
   for (let y = 0; y < graphEntries.length; y += 1) {
     for (let x = 0; x < graphEntries[y].length; x += 1) {
       const day = graphEntries[y][x];
-      if (moment(day.date) > today || !day || !day.info) {
+      if (moment(day.date) > today || !day.info) {
         continue;
       }
       ctx.fillStyle = day.info.color;
