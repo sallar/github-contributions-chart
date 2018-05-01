@@ -67,6 +67,7 @@ function drawYear(ctx, year, offsetX = 0, offsetY = 0, data) {
     getContributionCount(graphEntries)
   );
 
+  ctx.textBaseline = "hanging";
   ctx.fillStyle = "#000000";
   ctx.font = `10px '${fontFace}'`;
   ctx.fillText(
@@ -96,8 +97,14 @@ function drawMetaData(ctx, username, width, height) {
   ctx.fillStyle = "#ffffff";
   ctx.fillRect(0, 0, width, height);
 
-  ctx.font = `20px '${fontFace}'`;
+  ctx.fillStyle = "#666666";
+  ctx.textBaseline = "bottom";
+  ctx.font = `10px '${fontFace}'`;
+  ctx.fillText(`Made by @sallar`, canvasMargin, height);
+
   ctx.fillStyle = "#000000";
+  ctx.textBaseline = "hanging";
+  ctx.font = `20px '${fontFace}'`;
   ctx.fillText(`@${username} on Github`, canvasMargin, canvasMargin);
 
   ctx.beginPath();
