@@ -4,6 +4,17 @@ function getDateInfo(data, date) {
   return data.contributions.find(contrib => contrib.date === date);
 }
 
+function getContributionCount(graphEntries) {
+  return graphEntries.reduce((rowTotal, row) => {
+    return (
+      rowTotal +
+      row.reduce((colTotal, col) => {
+        return colTotal + (col.info ? col.info.count : 0);
+      }, 0)
+    );
+  }, 0);
+}
+
 const FORMAT = "YYYY-MM-DD";
 const boxWidth = 10;
 const boxMargin = 2;
@@ -15,9 +26,14 @@ const yearHeight = textHeight + (boxWidth + boxMargin) * 7 + canvasMargin;
 const scaleFactor = window.devicePixelRatio || 1;
 
 function drawYear(ctx, year, offsetX = 0, offsetY = 0, data) {
-  const today = moment(year.range.end);
-  const start = moment(year.range.start).day(-1);
+  const thisYear = moment().format("YYYY");
+  const today = year.year === thisYear ? moment() : moment(year.range.end);
+  const start = moment(`${year.year}-01-01`);
   const firstDate = start.clone();
+
+  if (firstDate.day() !== 6) {
+    firstDate.day(-(firstDate.day() + 1 % 7));
+  }
 
   const nextDate = firstDate.clone();
   const firstRowDates = [];
@@ -47,12 +63,17 @@ function drawYear(ctx, year, offsetX = 0, offsetY = 0, data) {
     );
   }
 
-  const count = new Intl.NumberFormat().format(year.total);
+  const count = new Intl.NumberFormat().format(
+    getContributionCount(graphEntries)
+  );
 
+  ctx.textBaseline = "hanging";
   ctx.fillStyle = "#000000";
   ctx.font = `10px '${fontFace}'`;
   ctx.fillText(
-    `${year.year}: ${count} Contribution${year.total === 1 ? "" : "s"}`,
+    `${year.year}: ${count} Contribution${year.total === 1 ? "" : "s"}${
+      thisYear === year.year ? " (so far)" : ""
+    }`,
     offsetX,
     offsetY
   );
@@ -78,8 +99,14 @@ function drawMetaData(ctx, username, width, height) {
   ctx.fillStyle = "#ffffff";
   ctx.fillRect(0, 0, width, height);
 
-  ctx.font = `20px '${fontFace}'`;
+  ctx.fillStyle = "#666666";
+  ctx.textBaseline = "bottom";
+  ctx.font = `10px '${fontFace}'`;
+  ctx.fillText(`Made by @sallar`, canvasMargin, height);
+
   ctx.fillStyle = "#000000";
+  ctx.textBaseline = "hanging";
+  ctx.font = `20px '${fontFace}'`;
   ctx.fillText(`@${username} on Github`, canvasMargin, canvasMargin);
 
   ctx.beginPath();
@@ -91,12 +118,10 @@ function drawMetaData(ctx, username, width, height) {
 
 export function drawContributions(canvas, data, username) {
   const height = data.years.length * yearHeight + canvasMargin + headerHeight;
-  const width = 54 * (boxWidth + boxMargin) + canvasMargin * 2;
+  const width = 53 * (boxWidth + boxMargin) + canvasMargin * 2;
 
   canvas.width = width * scaleFactor;
   canvas.height = height * scaleFactor;
-  // canvas.style.width = `${width}px`;
-  // canvas.style.height = `${height}px`;
 
   const ctx = canvas.getContext("2d");
   ctx.scale(scaleFactor, scaleFactor);
