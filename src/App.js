@@ -36,6 +36,7 @@ class App extends Component {
       }
       ).catch(err => {
         this.setState({
+          loading: false,
           error: 'I could not check your profile successfully...'
         });
       });
