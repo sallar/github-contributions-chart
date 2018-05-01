@@ -1,11 +1,15 @@
 import React, { Component } from "react";
 import logo from "./logo.svg";
 import "./App.css";
+import { drawContributions } from "./utils/draw";
 
 class App extends Component {
+  canvas = null;
+
   state = {
     loading: false,
-    username: ""
+    data: null,
+    username: "sallar"
   };
 
   handleUsernameChange = e => {
@@ -15,10 +19,17 @@ class App extends Component {
   };
 
   handleSubmit = () => {
-    this.setState({
-      loading: true
-    });
+    this.setState({ loading: true });
+    fetch(`https://github-contributions-api.now.sh/v1/${this.state.username}`)
+      .then(res => res.json())
+      .then(res =>
+        this.setState({ data: res, loading: false }, () => this.draw())
+      );
   };
+
+  draw() {
+    drawContributions(this.canvas, this.state.data, this.state.username);
+  }
 
   render() {
     return (
@@ -32,6 +43,8 @@ class App extends Component {
           <button onClick={this.handleSubmit}>Load</button>
         </header>
         {this.state.loading && <p className="App-intro">Loading</p>}
+        {this.state.data !== null &&
+          !this.state.loading && <canvas ref={el => (this.canvas = el)} />}
       </div>
     );
   }
