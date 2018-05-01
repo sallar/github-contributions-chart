@@ -8,6 +8,7 @@ const FORMAT = "YYYY-MM-DD";
 const boxWidth = 10;
 const boxMargin = 2;
 const textHeight = 15;
+const fontFace = "IBM Plex Mono";
 const headerHeight = 60;
 const canvasMargin = 20;
 const yearHeight = textHeight + (boxWidth + boxMargin) * 7 + canvasMargin;
@@ -49,7 +50,7 @@ function drawYear(ctx, year, offsetX = 0, offsetY = 0, data) {
   const count = new Intl.NumberFormat().format(year.total);
 
   ctx.fillStyle = "#000000";
-  ctx.font = "10px 'IBM Plex Mono'";
+  ctx.font = `10px '${fontFace}'`;
   ctx.fillText(
     `${year.year}: ${count} Contribution${year.total === 1 ? "" : "s"}`,
     offsetX,
@@ -77,7 +78,7 @@ function drawMetaData(ctx, username, width, height) {
   ctx.fillStyle = "#ffffff";
   ctx.fillRect(0, 0, width, height);
 
-  ctx.font = "20px IBM Plex Mono";
+  ctx.font = `20px '${fontFace}'`;
   ctx.fillStyle = "#000000";
   ctx.fillText(`@${username} on Github`, canvasMargin, canvasMargin);
 

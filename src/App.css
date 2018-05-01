@@ -4,7 +4,7 @@
 
 .App-header {
   background-color: #F4F5F6;
-  height: 300px;
+  height: 40rem;
   color: #606c76;
   display: flex;
   justify-content: center;
@@ -38,7 +38,7 @@ h4 {
 }
 
 form {
-  margin-top: 3em;
+  margin: 3em 0 1em;
   display: flex;
   justify-content: center;
   align-items: center;

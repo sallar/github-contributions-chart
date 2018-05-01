@@ -65,6 +65,9 @@ class App extends Component {
             />
             <button type="submit">✨ Generate!</button>
           </form>
+          <div className="App-github-button">
+            <a className="github-button" href="https://github.com/sallar/github-contributions-chart" data-size="large" data-show-count="true" aria-label="Star sallar/github-contribution-chart on GitHub">Star</a>
+          </div>
         </header>
         <section className="App-content">
           {this.state.loading && (
