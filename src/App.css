@@ -23,6 +23,16 @@
   color: #606c76;
 }
 
+.App-result {
+  max-width: 688px;
+  margin: 0 auto;
+}
+
+.App-result canvas {
+  width: 100%;
+  height: auto;
+}
+
 h1, h4 {
   font-weight: 300;
   margin: 0;
@@ -70,7 +80,7 @@ form button {
   border-radius: 0 .4rem .4rem 0;
 }
 
-@media all and (max-width: 44rem) {
+@media all and (max-width: 32rem) {
   .App-header {
     padding: 1rem;
     font-size: .9em;
@@ -88,11 +98,5 @@ form button {
   form input {
     margin-bottom: .5rem;
     text-align: center;
-  }
-
-  .App-result canvas {
-    max-width: 100%;
-    width: 100% !important;
-    height: auto !important;
   }
 }

@@ -95,8 +95,8 @@ export function drawContributions(canvas, data, username) {
 
   canvas.width = width * scaleFactor;
   canvas.height = height * scaleFactor;
-  canvas.style.width = `${width}px`;
-  canvas.style.height = `${height}px`;
+  // canvas.style.width = `${width}px`;
+  // canvas.style.height = `${height}px`;
 
   const ctx = canvas.getContext("2d");
   ctx.scale(scaleFactor, scaleFactor);
