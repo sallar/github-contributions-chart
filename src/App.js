@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import logo from "./logo.svg";
+import loading from "./loading.gif";
 import "./App.css";
 import { drawContributions } from "./utils/draw";
 
@@ -9,7 +9,8 @@ class App extends Component {
   state = {
     loading: false,
     data: null,
-    username: "sallar"
+    error: null,
+    username: ""
   };
 
   handleUsernameChange = e => {
@@ -20,15 +21,32 @@ class App extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    this.setState({ loading: true });
+    this.setState({ loading: true, error: null });
     fetch(`https://github-contributions-api.now.sh/v1/${this.state.username}`)
       .then(res => res.json())
-      .then(res =>
+      .then(res => {
+        if (res.years.length === 0) {
+          return this.setState({
+            error: 'Could not find your profile 😭',
+            data: null,
+            loading: false
+          });
+        }
         this.setState({ data: res, loading: false }, () => this.draw())
-      );
+      }
+      ).catch(err => {
+        this.setState({
+          error: 'I could not check your profile successfully...'
+        });
+      });
   };
 
   draw() {
+    if (!this.canvas) {
+      return this.setState({
+        error: 'Something went wrong... Check back later.'
+      });
+    }
     drawContributions(this.canvas, this.state.data, this.state.username);
   }
 
@@ -47,9 +65,26 @@ class App extends Component {
             <button type="submit">✨ Generate!</button>
           </form>
         </header>
-        {this.state.loading && <p className="App-intro">Loading</p>}
-        {this.state.data !== null &&
-          !this.state.loading && <canvas ref={el => (this.canvas = el)} />}
+        <section className="App-content">
+          {this.state.loading && (
+            <div className="App-loading">
+              <img src={loading} alt="Loading..." width={200}/>
+              <p>Please wait, I'm visiting your profile...</p>
+            </div>
+          )}
+          {this.state.data !== null &&
+          !this.state.loading && (
+            <div className="App-result">
+              <p>😱 Your chart is ready!<br />Right click on it and choose "Save Image As..."</p>
+              <canvas ref={el => (this.canvas = el)} />
+            </div>
+          )}
+          {this.state.error !== null && (
+            <div className="App-error">
+              <p>{this.state.error}</p>
+            </div>
+          )}
+        </section>
       </div>
     );
   }

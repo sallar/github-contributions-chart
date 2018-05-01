@@ -19,9 +19,12 @@
   font-size: large;
 }
 
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.App-content {
+  padding: 3rem;
+}
+
+.App-loading {
+  color: #606c76;
 }
 
 h1, h4 {
