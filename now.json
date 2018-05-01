@@ -1,0 +1,6 @@
+{
+  "alias": "github-contributions.now.sh",
+  "env": {
+    "NODE_ENV": "production"
+  }
+}
