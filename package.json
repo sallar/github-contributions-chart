@@ -10,6 +10,7 @@
     "serve": "^6.5.6"
   },
   "scripts": {
+    "deploy": "now --public && now alias",
     "now-start": "serve -s build",
     "start": "react-scripts start",
     "build": "react-scripts build",
