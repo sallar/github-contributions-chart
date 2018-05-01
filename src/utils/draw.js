@@ -4,6 +4,17 @@ function getDateInfo(data, date) {
   return data.contributions.find(contrib => contrib.date === date);
 }
 
+function getContributionCount(graphEntries) {
+  return graphEntries.reduce((rowTotal, row) => {
+    return (
+      rowTotal +
+      row.reduce((colTotal, col) => {
+        return colTotal + (col.info ? col.info.count : 0);
+      }, 0)
+    );
+  }, 0);
+}
+
 const FORMAT = "YYYY-MM-DD";
 const boxWidth = 10;
 const boxMargin = 2;
@@ -52,7 +63,9 @@ function drawYear(ctx, year, offsetX = 0, offsetY = 0, data) {
     );
   }
 
-  const count = new Intl.NumberFormat().format(year.total);
+  const count = new Intl.NumberFormat().format(
+    getContributionCount(graphEntries)
+  );
 
   ctx.fillStyle = "#000000";
   ctx.font = `10px '${fontFace}'`;
