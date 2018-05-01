@@ -15,10 +15,6 @@
   font-size: 1.5em;
 }
 
-.App-intro {
-  font-size: large;
-}
-
 .App-content {
   padding: 3rem;
 }
@@ -72,4 +68,31 @@ form input {
 
 form button {
   border-radius: 0 .4rem .4rem 0;
+}
+
+@media all and (max-width: 44rem) {
+  .App-header {
+    padding: 1rem;
+    font-size: .9em;
+  }
+
+  form {
+    flex-direction: column;
+  }
+
+  form input, form button {
+    width: 100%;
+    border-radius: .4rem;
+  }
+
+  form input {
+    margin-bottom: .5rem;
+    text-align: center;
+  }
+
+  .App-result canvas {
+    max-width: 100%;
+    width: 100% !important;
+    height: auto !important;
+  }
 }
