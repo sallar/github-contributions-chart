@@ -10,7 +10,8 @@ class App extends Component {
     standard: "Github",
     halloween: "Halloween",
     teal: "Teal",
-    leftPad: "@left_pad"
+    leftPad: "@left_pad",
+    dracula: "Dracula"
   };
 
   state = {
