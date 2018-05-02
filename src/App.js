@@ -7,7 +7,7 @@ import "./App.css";
 class App extends Component {
   canvas = null;
   availableThemes = {
-    standard: "Github",
+    standard: "GitHub",
     halloween: "Halloween",
     teal: "Teal",
     leftPad: "@left_pad"
@@ -77,7 +77,7 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <h1>Github Contributions Chart Generator</h1>
+          <h1>GitHub Contributions Chart Generator</h1>
           <h4>All your contributions in one image!</h4>
           <form onSubmit={this.handleSubmit}>
             <input
