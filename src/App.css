@@ -80,7 +80,7 @@ form button {
   border-radius: 0 .4rem .4rem 0;
 }
 
-@media all and (max-width: 32rem) {
+@media all and (max-width: 40rem) {
   .App-header {
     padding: 1rem;
     font-size: .9em;
