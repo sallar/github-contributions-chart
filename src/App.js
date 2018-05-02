@@ -1,8 +1,8 @@
 import React, { Component } from "react";
+import { drawContributions } from "github-contributions-canvas";
+import { download } from "./utils/export";
 import loading from "./loading.gif";
 import "./App.css";
-import { drawContributions } from "./utils/draw";
-import { download } from "./utils/export";
 
 class App extends Component {
   canvas = null;
@@ -54,7 +54,11 @@ class App extends Component {
         error: "Something went wrong... Check back later."
       });
     }
-    drawContributions(this.canvas, this.state.data, this.state.username);
+    drawContributions(this.canvas, {
+      data: this.state.data,
+      username: this.state.username,
+      footerText: "Made by @sallar - github-contributions.now.sh"
+    });
   }
 
   render() {
