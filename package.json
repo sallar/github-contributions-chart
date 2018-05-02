@@ -1,7 +1,7 @@
 {
   "name": "github-contribution-chart",
+  "description": "Generate an image of all your Github contributions",
   "version": "0.1.0",
-  "private": false,
   "dependencies": {
     "github-contributions-canvas": "0.0.1",
     "moment": "^2.22.1",
@@ -10,6 +10,16 @@
     "react-scripts": "1.1.4",
     "serve": "^6.5.6"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sallar/github-contributions-chart.git"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sallar/github-contributions-chart/issues"
+  },
+  "author": "Sallar Kaboli <sallar.kaboli@gmail.com>",
+  "homepage": "https://github.com/sallar/github-contributions-chart#readme",
   "scripts": {
     "deploy": "now --public && now alias",
     "now-start": "serve -s build",
