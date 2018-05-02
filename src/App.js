@@ -6,12 +6,19 @@ import "./App.css";
 
 class App extends Component {
   canvas = null;
+  availableThemes = {
+    standard: "Github",
+    halloween: "Halloween",
+    teal: "Teal",
+    leftPad: "@left_pad"
+  };
 
   state = {
     loading: false,
     data: null,
     error: null,
-    username: ""
+    username: "",
+    theme: "standard"
   };
 
   handleUsernameChange = e => {
@@ -43,6 +50,10 @@ class App extends Component {
       });
   };
 
+  handleChangeTheme = e => {
+    this.setState({ theme: e.target.value });
+  };
+
   download = e => {
     e.preventDefault();
     download(this.canvas);
@@ -57,6 +68,7 @@ class App extends Component {
     drawContributions(this.canvas, {
       data: this.state.data,
       username: this.state.username,
+      themeName: this.state.theme,
       footerText: "Made by @sallar - github-contributions.now.sh"
     });
   }
@@ -80,6 +92,20 @@ class App extends Component {
               Generate!
             </button>
           </form>
+          <div className="App-themes">
+            {Object.keys(this.availableThemes).map(themeName => (
+              <label key={themeName}>
+                <input
+                  type="radio"
+                  name="theme"
+                  checked={this.state.theme === themeName}
+                  value={themeName}
+                  onChange={this.handleChangeTheme}
+                />{" "}
+                {this.availableThemes[themeName]}
+              </label>
+            ))}
+          </div>
           <div className="App-github-button">
             <a
               className="github-button"

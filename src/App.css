@@ -44,7 +44,7 @@ h4 {
 }
 
 form {
-  margin: 3em 0 1em;
+  margin: 3em 0 0.5rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -71,13 +71,6 @@ button {
   outline: none;
 }
 
-.App-download-button {
-  height: 2rem;
-  line-height: 2rem;
-  padding: 0 1rem;
-  margin-left: 1rem;
-}
-
 form input {
   width: 30rem;
   border-radius: .4rem 0 0 .4rem;
@@ -85,6 +78,31 @@ form input {
 
 form button {
   border-radius: 0 .4rem .4rem 0;
+}
+
+.App-download-button {
+  height: 2rem;
+  line-height: 2rem;
+  padding: 0 1rem;
+  margin-left: 1rem;
+}
+
+.App-themes {
+  margin-bottom: 1rem;
+}
+
+.App-themes, .App-themes label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.App-themes label {
+  margin: 0 1rem;
+}
+
+.App-themes label input {
+  margin-right: 0.5rem;
 }
 
 @media all and (max-width: 500px) {
