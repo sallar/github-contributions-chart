@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import loading from "./loading.gif";
 import "./App.css";
 import { drawContributions } from "./utils/draw";
+import { download } from "./utils/export";
 
 class App extends Component {
   canvas = null;
@@ -40,6 +41,11 @@ class App extends Component {
           error: "I could not check your profile successfully..."
         });
       });
+  };
+
+  download = e => {
+    e.preventDefault();
+    download(this.canvas);
   };
 
   draw() {
@@ -97,7 +103,14 @@ class App extends Component {
                     😱
                   </span>{" "}
                   Your chart is ready!<br />Right click on it and choose "Save
-                  Image As..."
+                  Image As..., or
+                  <button
+                    className="App-download-button"
+                    onClick={this.download}
+                    type="button"
+                  >
+                    Click here
+                  </button>
                 </p>
                 <canvas ref={el => (this.canvas = el)} />
               </div>
