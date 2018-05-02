@@ -71,6 +71,13 @@ button {
   outline: none;
 }
 
+.App-download-button {
+  height: 2rem;
+  line-height: 2rem;
+  padding: 0 1rem;
+  margin-left: 1rem;
+}
+
 form input {
   width: 30rem;
   border-radius: .4rem 0 0 .4rem;
@@ -80,7 +87,7 @@ form button {
   border-radius: 0 .4rem .4rem 0;
 }
 
-@media all and (max-width: 32rem) {
+@media all and (max-width: 40rem) {
   .App-header {
     padding: 1rem;
     font-size: .9em;
