@@ -102,7 +102,11 @@ function drawMetaData(ctx, username, width, height) {
   ctx.fillStyle = "#666666";
   ctx.textBaseline = "bottom";
   ctx.font = `10px '${fontFace}'`;
-  ctx.fillText(`Made by @sallar`, canvasMargin, height);
+  ctx.fillText(
+    `Made by @sallar - github-contributions.now.sh`,
+    canvasMargin,
+    height - 5
+  );
 
   ctx.fillStyle = "#000000";
   ctx.textBaseline = "hanging";
