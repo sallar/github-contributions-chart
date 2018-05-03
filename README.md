@@ -13,7 +13,7 @@ Add your theme to [sallar/github-contribution-canvas](https://github.com/sallar/
 ## Example
 
 <div align="center">
-  <img src="/sallar/github-contributions-chart/raw/master/screenshot.png" width="676">
+  <img src="screenshot.png" width="676">
 </div>
 
 ## License
