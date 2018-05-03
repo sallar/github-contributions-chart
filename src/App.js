@@ -55,6 +55,7 @@ class App extends Component {
 
   handleChangeTheme = e => {
     this.setState({ theme: e.target.value });
+    this.refs.btnGenerate.click();
   };
 
   download = e => {
@@ -88,7 +89,7 @@ class App extends Component {
               onChange={this.handleUsernameChange}
               value={this.state.username}
             />
-            <button type="submit">
+            <button ref="btnGenerate" type="submit">
               <span role="img" aria-label="Stars">
                 ✨
               </span>{" "}
