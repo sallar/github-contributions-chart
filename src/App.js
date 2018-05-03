@@ -21,7 +21,7 @@ class App extends Component {
     data: null,
     error: null,
     username: "",
-    theme: "standard",
+    theme: "standard"
   };
 
   handleUsernameChange = e => {
