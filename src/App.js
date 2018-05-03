@@ -21,7 +21,7 @@ class App extends Component {
     data: null,
     error: null,
     username: "",
-    theme: "standard"
+    theme: "standard",
   };
 
   handleUsernameChange = e => {
@@ -138,7 +138,7 @@ class App extends Component {
     return (
       <div className="App-loading">
         <img src={loadingImage} alt="Loading..." width={200} />
-        <p>Please wait, I'm visiting your profile...</p>
+        <p>Please wait, I{`'`}m visiting your profile...</p>
       </div>
     );
   };
@@ -173,7 +173,7 @@ class App extends Component {
           onChange={this.handleUsernameChange}
           value={this.state.username}
         />
-        <button type="submit">
+        <button type="submit" disabled={this.state.username.length <= 0}>
           <span role="img" aria-label="Stars">
             ✨
           </span>{" "}
