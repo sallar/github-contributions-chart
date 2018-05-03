@@ -54,7 +54,9 @@ class App extends Component {
   };
 
   handleChangeTheme = e => {
-    this.setState({ theme: e.target.value });
+    this.setState({ theme: e.target.value }, () => {
+      return this.canvas && this.draw();
+    });
   };
 
   download = e => {
