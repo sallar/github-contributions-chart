@@ -22,16 +22,9 @@ class App extends Component {
     error: null,
     username: "",
     theme: "standard",
-    disableButton: true,
   };
 
   handleUsernameChange = e => {
-    if(e.target.value.length > 0) {
-      this.setState({ disableButton: false });
-    }
-    else {
-      this.setState({ disableButton: true });
-    }
     this.setState({
       username: e.target.value
     });
@@ -180,7 +173,7 @@ class App extends Component {
           onChange={this.handleUsernameChange}
           value={this.state.username}
         />
-        <button type="submit" disabled={this.state.disableButton}>
+        <button type="submit" disabled={this.state.username.length <= 0}>
           <span role="img" aria-label="Stars">
             ✨
           </span>{" "}
