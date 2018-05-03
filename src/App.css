@@ -69,6 +69,7 @@ button {
   color: #fff;
   font-size: .8em;
   outline: none;
+  cursor: pointer;
 }
 
 form input {
@@ -100,6 +101,7 @@ form button {
 
 .App-themes label {
   margin: 0 1rem;
+  cursor: pointer;
 }
 
 .App-themes label input {
