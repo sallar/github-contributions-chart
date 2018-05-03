@@ -69,6 +69,7 @@ button {
   color: #fff;
   font-size: .8em;
   outline: none;
+  cursor: pointer;
 }
 
 form input {
@@ -87,18 +88,20 @@ form button {
   margin-left: 1rem;
 }
 
-.App-themes {
-  margin-bottom: 1rem;
-}
-
 .App-themes, .App-themes label {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
+.App-themes {
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
 .App-themes label {
   margin: 0 1rem;
+  cursor: pointer;
 }
 
 .App-themes label input {

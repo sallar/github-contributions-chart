@@ -1,9 +1,9 @@
 {
   "name": "github-contribution-chart",
-  "description": "Generate an image of all your Github contributions",
+  "description": "Generate an image of all your GitHub contributions",
   "version": "0.1.0",
   "dependencies": {
-    "github-contributions-canvas": "0.0.3",
+    "github-contributions-canvas": "0.0.7",
     "moment": "^2.22.1",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
