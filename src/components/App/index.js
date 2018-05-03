@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { drawContributions } from "github-contributions-canvas";
-import { download } from "./utils/export";
-import loadingImage from "./loading.gif";
-import "./App.css";
+import { download } from "../../utils/export";
+import loadingImage from "../../assets/img/loading.gif";
+import GithubContribution from "../../services/github-contribution";
 
 class App extends Component {
   canvas = null;
@@ -33,10 +33,11 @@ class App extends Component {
   handleSubmit = e => {
     e.preventDefault();
     this.setState({ loading: true, error: null });
-    fetch(`https://github-contributions-api.now.sh/v1/${this.state.username}`)
+
+    GithubContribution.getByUsername(this.state.username)
       .then(res => res.json())
       .then(res => {
-        if (res.years.length === 0) {
+        if (GithubContribution.emptyYears(res.years)) {
           return this.setState({
             error: "Could not find your profile",
             data: null,
