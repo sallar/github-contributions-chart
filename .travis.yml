@@ -5,3 +5,4 @@ node_js:
   - 6
 git:
   depth: 5
+cache: yarn
