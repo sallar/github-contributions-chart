@@ -3,6 +3,7 @@ import { drawContributions } from "github-contributions-canvas";
 import { download } from "../../utils/export";
 import loadingImage from "../../assets/img/loading.gif";
 import GithubContribution from "../../services/github-contribution";
+import ErrorResponse from "../ErrorResponse";
 
 class App extends Component {
   canvas = null;
@@ -94,7 +95,7 @@ class App extends Component {
           {this.state.data !== null &&
             !this.state.loading &&
             this._renderGraphs()}
-          {this.state.error !== null && this._renderError()}
+          {this.state.error !== null && <ErrorResponse error={this.state.error} />}
         </section>
       </div>
     );
@@ -181,14 +182,6 @@ class App extends Component {
           Generate!
         </button>
       </form>
-    );
-  };
-
-  _renderError = () => {
-    return (
-      <div className="App-error">
-        <p>{this.state.error}</p>
-      </div>
     );
   };
 }
