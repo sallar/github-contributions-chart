@@ -169,7 +169,7 @@ class App extends Component {
     return (
       <form onSubmit={this.handleSubmit}>
         <input
-          placeholder="Your github username"
+          placeholder="Your GitHub Username"
           onChange={this.handleUsernameChange}
           value={this.state.username}
         />
