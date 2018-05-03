@@ -145,7 +145,7 @@ class App extends Component {
     return (
       <div className="App-loading">
         <img src={loadingImage} alt="Loading..." width={200} />
-        <p>{`Please wait, I'm visiting your profile...`}</p>
+        <p>Please wait, I{`'`}m visiting your profile...</p>
       </div>
     );
   };
