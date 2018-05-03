@@ -74,7 +74,7 @@ class App extends Component {
       data: this.state.data,
       username: this.state.username,
       themeName: this.state.theme,
-      footerText: "Made by @sallar - github-contributions.now.sh"
+      footerText: "Made by @sallar & friends - github-contributions.now.sh"
     });
   }
 
