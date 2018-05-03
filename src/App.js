@@ -151,7 +151,7 @@ class App extends Component {
             😱
           </span>{" "}
           Your chart is ready!<br />Right click on it and choose "Save Image
-          As..., or
+          As...", or
           <button
             className="App-download-button"
             onClick={this.download}
