@@ -150,19 +150,14 @@ class App extends Component {
   _renderGraphs = () => {
     return (
       <div className="App-result">
-        <p>
-          <span role="img" aria-label="Scream">
-            😱
-          </span>{" "}
-          Your chart is ready!<br />Right click on it and choose "Save Image
-          As...",
-          <br />
+        <p>Your chart is ready!</p>
+        <div className="App-buttons">
           <button
             className="App-download-button"
             onClick={this.download}
             type="button"
           >
-            Click here
+            Download the Image
           </button>
           or
           <button
@@ -172,7 +167,8 @@ class App extends Component {
           >
             Share on Twitter
           </button>
-        </p>
+        </div>
+
         <canvas ref={el => (this.canvas = el)} />
       </div>
     );

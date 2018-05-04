@@ -89,19 +89,26 @@ form button {
   border-radius: 0 0.4rem 0.4rem 0;
 }
 
+.App-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
 .App-download-button {
   height: 2rem;
   line-height: 2rem;
   padding: 0 1rem;
-  margin-left: 1rem;
-  margin-right: 5px;
+  margin: 0 1rem;
+  margin-right: 0.5rem;
 }
 
 .App-twitter-button {
   height: 2rem;
   line-height: 2rem;
   padding: 0 1rem;
-  margin-left: 1rem;
+  margin: 0 1rem;
   background-color: rgb(0, 169, 237);
   border: 0;
 }
