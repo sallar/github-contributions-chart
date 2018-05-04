@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { drawContributions } from "github-contributions-canvas";
-import { download, shareToTwitter } from "./utils/export";
+import { download, onShareTwitter } from "./utils/export";
 import loadingImage from "./loading.gif";
 import "./App.css";
 
@@ -64,9 +64,9 @@ class App extends Component {
     download(this.canvas);
   };
 
-  shareToTwitter = e => {
+  onShareTwitter = e => {
     e.preventDefault();
-    shareToTwitter(this.canvas);
+    onShareTwitter(this.canvas);
   };
 
   draw() {
@@ -168,10 +168,10 @@ class App extends Component {
           or
           <button
             className="App-twitter-button"
-            onClick={this.shareToTwitter}
+            onClick={this.onShareTwitter}
             type="button"
           >
-            Share to Twitter
+            Share on Twitter
           </button>
         </p>
         <canvas ref={el => (this.canvas = el)} />
