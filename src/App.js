@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { drawContributions } from "github-contributions-canvas";
-import { download } from "./utils/export";
+import { download, shareToTwitter } from "./utils/export";
 import loadingImage from "./loading.gif";
 import "./App.css";
 
@@ -62,6 +62,11 @@ class App extends Component {
   download = e => {
     e.preventDefault();
     download(this.canvas);
+  };
+
+  shareToTwitter = e => {
+    e.preventDefault();
+    shareToTwitter(this.canvas);
   };
 
   draw() {
@@ -151,13 +156,22 @@ class App extends Component {
             😱
           </span>{" "}
           Your chart is ready!<br />Right click on it and choose "Save Image
-          As...", or
+          As...",
+          <br />
           <button
             className="App-download-button"
             onClick={this.download}
             type="button"
           >
             Click here
+          </button>
+          or
+          <button
+            className="App-twitter-button"
+            onClick={this.shareToTwitter}
+            type="button"
+          >
+            Share to Twitter
           </button>
         </p>
         <canvas ref={el => (this.canvas = el)} />
