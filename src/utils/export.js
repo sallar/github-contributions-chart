@@ -14,7 +14,7 @@ export function download(canvas) {
   }
 }
 
-export async function onShareTwitter(canvas) {
+export async function uploadToTwitter(canvas) {
   try {
     const dataUrl = canvas.toDataURL();
     const res = await axios.post("/twitter", {
