@@ -79,7 +79,7 @@ class App extends Component {
       data: this.state.data,
       username: this.state.username,
       themeName: this.state.theme,
-      footerText: "Made by @sallar - github-contributions.now.sh"
+      footerText: "Made by @sallar & friends - github-contributions.now.sh"
     });
   }
 
@@ -143,7 +143,7 @@ class App extends Component {
     return (
       <div className="App-loading">
         <img src={loadingImage} alt="Loading..." width={200} />
-        <p>Please wait, I'm visiting your profile...</p>
+        <p>Please wait, I{`'`}m visiting your profile...</p>
       </div>
     );
   };
@@ -186,8 +186,9 @@ class App extends Component {
           placeholder="Your GitHub Username"
           onChange={this.handleUsernameChange}
           value={this.state.username}
+          id="username"
         />
-        <button type="submit">
+        <button type="submit" disabled={this.state.username.length <= 0}>
           <span role="img" aria-label="Stars">
             ✨
           </span>{" "}
