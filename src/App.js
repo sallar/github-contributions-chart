@@ -172,6 +172,7 @@ class App extends Component {
           placeholder="Your GitHub Username"
           onChange={this.handleUsernameChange}
           value={this.state.username}
+          id="username"
         />
         <button type="submit" disabled={this.state.username.length <= 0}>
           <span role="img" aria-label="Stars">
