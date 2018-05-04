@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { drawContributions } from "github-contributions-canvas";
-import { download, uploadToTwitter } from "./utils/export";
+import { download, uploadToTwitter, fetchData } from "./utils/export";
 import loadingImage from "./loading.gif";
 import "./App.css";
 
@@ -33,17 +33,16 @@ class App extends Component {
   handleSubmit = e => {
     e.preventDefault();
     this.setState({ loading: true, error: null });
-    fetch(`https://github-contributions-api.now.sh/v1/${this.state.username}`)
-      .then(res => res.json())
-      .then(res => {
-        if (res.years.length === 0) {
+    fetchData(this.state.username)
+      .then(({ data }) => {
+        if (data.years.length === 0) {
           return this.setState({
             error: "Could not find your profile",
             data: null,
             loading: false
           });
         }
-        this.setState({ data: res, loading: false }, () => this.draw());
+        this.setState({ data, loading: false }, () => this.draw());
       })
       .catch(err => {
         this.setState({

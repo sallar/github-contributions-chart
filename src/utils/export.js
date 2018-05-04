@@ -1,5 +1,11 @@
 import axios from "axios";
 
+const API_URL = "https://github-contributions-api.now.sh/v1/";
+
+export function fetchData(username) {
+  return axios.get(API_URL + username);
+}
+
 export function download(canvas) {
   try {
     const dataUrl = canvas.toDataURL();
@@ -16,12 +22,12 @@ export function download(canvas) {
 
 export async function uploadToTwitter(canvas) {
   try {
-    const dataUrl = canvas.toDataURL();
-    const res = await axios.post("/twitter", {
-      image: dataUrl
+    const { data } = await axios.post(API_URL + "tweetMedia", {
+      image: canvas.toDataURL()
     });
-    const url = window.encodeURIComponent(res.data.image_url);
-    const text = "Happy Coding! https://github-contributions.now.sh";
+    const url = window.encodeURIComponent(data.mediaUrl);
+    const text =
+      "Check out my #GitHubContributions history over time. A free tool by @sallar and friends. https://github-contributions.now.sh";
     window.open(`https://twitter.com/share?text=${text}&url=${url}`);
   } catch (err) {
     console.error(err);
