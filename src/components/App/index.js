@@ -1,35 +1,46 @@
 import React, { Component } from "react";
 import { drawContributions } from "github-contributions-canvas";
 import { download } from "../../utils/export";
-import loadingImage from "../../assets/img/loading.gif";
 import GithubContribution from "../../services/github-contribution";
+import InputField from "../InputField";
+import Button from "../Button";
+import GithubStarLink from "../GithubStarLink";
 import ErrorResponse from "../ErrorResponse";
+import Loading from "../Loading";
+import ContributionGraph from "../ContributionGraph";
 
 class App extends Component {
-  canvas = null;
-  availableThemes = {
-    standard: "GitHub",
-    halloween: "Halloween",
-    teal: "Teal",
-    leftPad: "@left_pad",
-    dracula: "Dracula",
-    blue: "Blue",
-    panda: "Panda 🐼"
-  };
+  constructor (props) {
+    super();
 
-  state = {
-    loading: false,
-    data: null,
-    error: null,
-    username: "",
-    theme: "standard"
-  };
+    this.canvas = null;
+
+    this.availableThemes = {
+      standard: "GitHub",
+      halloween: "Halloween",
+      teal: "Teal",
+      leftPad: "@left_pad",
+      dracula: "Dracula",
+      blue: "Blue",
+      panda: "Panda 🐼"
+    };
+  
+    this.state = {
+      loading: false,
+      data: null,
+      error: null,
+      username: "",
+      theme: "standard"
+    };
+
+    this.handleChangeTheme = this.handleChangeTheme.bind(this);
+  }
 
   handleUsernameChange = e => {
     this.setState({
       username: e.target.value
     });
-  };
+  }
 
   handleSubmit = e => {
     e.preventDefault();
@@ -53,18 +64,18 @@ class App extends Component {
           error: "I could not check your profile successfully..."
         });
       });
-  };
+  }
 
   handleChangeTheme = e => {
     this.setState({ theme: e.target.value }, () => {
       return this.canvas && this.draw();
     });
-  };
+  }
 
   download = e => {
     e.preventDefault();
     download(this.canvas);
-  };
+  }
 
   draw() {
     if (!this.canvas) {
@@ -79,34 +90,13 @@ class App extends Component {
       footerText: "Made by @sallar & friends - github-contributions.now.sh"
     });
   }
-
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <h1>GitHub Contributions Chart Generator</h1>
-          <h4>All your contributions in one image!</h4>
-          {this._renderForm()}
-          {this._renderThemes()}
-          {this._renderGithubButton()}
-        </header>
-        <section className="App-content">
-          {this.state.loading && this._renderLoading()}
-          {this.state.data !== null &&
-            !this.state.loading &&
-            this._renderGraphs()}
-          {this.state.error !== null && <ErrorResponse error={this.state.error} />}
-        </section>
-      </div>
-    );
-  }
-
+  
   _renderThemes = () => {
     return (
       <div className="App-themes">
         {Object.keys(this.availableThemes).map(themeName => (
           <label key={themeName}>
-            <input
+            <InputField
               type="radio"
               name="theme"
               checked={this.state.theme === themeName}
@@ -118,72 +108,53 @@ class App extends Component {
         ))}
       </div>
     );
-  };
-
-  _renderGithubButton = () => {
-    return (
-      <div className="App-github-button">
-        <a
-          className="github-button"
-          href="https://github.com/sallar/github-contributions-chart"
-          data-size="large"
-          data-show-count="true"
-          aria-label="Star sallar/github-contribution-chart on GitHub"
-        >
-          Star
-        </a>
-      </div>
-    );
-  };
-
-  _renderLoading = () => {
-    return (
-      <div className="App-loading">
-        <img src={loadingImage} alt="Loading..." width={200} />
-        <p>Please wait, I{`'`}m visiting your profile...</p>
-      </div>
-    );
-  };
-
-  _renderGraphs = () => {
-    return (
-      <div className="App-result">
-        <p>
-          <span role="img" aria-label="Scream">
-            😱
-          </span>{" "}
-          Your chart is ready!<br />Right click on it and choose "Save Image
-          As...", or
-          <button
-            className="App-download-button"
-            onClick={this.download}
-            type="button"
-          >
-            Click here
-          </button>
-        </p>
-        <canvas ref={el => (this.canvas = el)} />
-      </div>
-    );
-  };
+  }
 
   _renderForm = () => {
     return (
       <form onSubmit={this.handleSubmit}>
-        <input
+        <InputField
           placeholder="Your GitHub Username"
           onChange={this.handleUsernameChange}
           value={this.state.username}
         />
-        <button type="submit" disabled={this.state.username.length <= 0}>
+
+        <Button
+          type="submit"
+          disabled={this.state.username.length <= 0}
+        >
           <span role="img" aria-label="Stars">
             ✨
           </span>{" "}
           Generate!
-        </button>
+        </Button>
       </form>
     );
-  };
+  }
+
+  render() {
+    return (
+      <div className="App">
+        <header className="App-header">
+          <h1>GitHub Contributions Chart Generator</h1>
+          <h4>All your contributions in one image!</h4>
+          {this._renderForm()}
+          {this._renderThemes()}
+          <GithubStarLink />
+        </header>
+        <section className="App-content">
+          {this.state.loading && <Loading />}
+          {this.state.data !== null &&
+            !this.state.loading &&
+            <ContributionGraph 
+              canvas={el => (this.canvas = el)}
+              download={this.download}
+            />}
+          {this.state.error !== null && <ErrorResponse error={this.state.error} />}
+        </section>
+      </div>
+    );
+  }
 }
 
 export default App;
