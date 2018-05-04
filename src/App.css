@@ -53,8 +53,9 @@ form {
 
 input {
   border: 0.1rem solid #d1d1d1;
-  border-radius: 0.4rem;
-  padding: 0.6rem 1rem;
+  border-right: 0;
+  border-radius: .4rem;
+  padding: .6rem 1.0rem;
   height: 4rem;
   outline: none;
 }
@@ -71,6 +72,12 @@ button {
   font-size: 0.8em;
   outline: none;
   cursor: pointer;
+}
+
+button:disabled {
+  background-color: #cfd0d4;
+  border: 0.1rem solid #cfd0d4;
+  cursor: not-allowed;
 }
 
 form input {
