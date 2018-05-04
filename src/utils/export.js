@@ -26,8 +26,9 @@ export async function uploadToTwitter(canvas) {
       image: canvas.toDataURL()
     });
     const url = window.encodeURIComponent(data.mediaUrl);
-    const text =
-      "Check out my #GitHubContributions history over time. A free tool by @sallar and friends. https://github-contributions.now.sh";
+    const text = window.encodeURIComponent(
+      "Check out my #GitHubContributions history over time. A free tool by @sallar and friends. https://github-contributions.now.sh"
+    );
     window.open(`https://twitter.com/share?text=${text}&url=${url}`);
   } catch (err) {
     console.error(err);
