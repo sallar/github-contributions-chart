@@ -4,7 +4,7 @@
 
 .App-header {
   background-color: #f4f5f6;
-  height: 40rem;
+  min-height: 40rem;
   color: #606c76;
   display: flex;
   justify-content: center;
@@ -61,7 +61,7 @@ input {
 }
 
 button {
-  height: 4rem;
+  min-height: 4rem;
   letter-spacing: 0.1rem;
   line-height: 4rem;
   padding: 0 3rem;
@@ -97,7 +97,7 @@ form button {
 }
 
 .App-download-button {
-  height: 2rem;
+  min-height: 2rem;
   line-height: 2rem;
   padding: 0 1rem;
   margin: 0 1rem;
@@ -105,7 +105,7 @@ form button {
 }
 
 .App-twitter-button {
-  height: 2rem;
+  min-height: 2rem;
   line-height: 2rem;
   padding: 0 1rem;
   margin: 0 1rem;
