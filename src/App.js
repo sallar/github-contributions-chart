@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { drawContributions } from "github-contributions-canvas";
-import { download } from "./utils/export";
+import { download, uploadToTwitter, fetchData } from "./utils/export";
 import loadingImage from "./loading.gif";
 import "./App.css";
 
@@ -33,17 +33,16 @@ class App extends Component {
   handleSubmit = e => {
     e.preventDefault();
     this.setState({ loading: true, error: null });
-    fetch(`https://github-contributions-api.now.sh/v1/${this.state.username}`)
-      .then(res => res.json())
-      .then(res => {
-        if (res.years.length === 0) {
+    fetchData(this.state.username)
+      .then(({ data }) => {
+        if (data.years.length === 0) {
           return this.setState({
             error: "Could not find your profile",
             data: null,
             loading: false
           });
         }
-        this.setState({ data: res, loading: false }, () => this.draw());
+        this.setState({ data, loading: false }, () => this.draw());
       })
       .catch(err => {
         this.setState({
@@ -62,6 +61,11 @@ class App extends Component {
   download = e => {
     e.preventDefault();
     download(this.canvas);
+  };
+
+  onShareTwitter = e => {
+    e.preventDefault();
+    uploadToTwitter(this.canvas);
   };
 
   draw() {
@@ -146,20 +150,25 @@ class App extends Component {
   _renderGraphs = () => {
     return (
       <div className="App-result">
-        <p>
-          <span role="img" aria-label="Scream">
-            😱
-          </span>{" "}
-          Your chart is ready!<br />Right click on it and choose "Save Image
-          As...", or
+        <p>Your chart is ready!</p>
+        <div className="App-buttons">
           <button
             className="App-download-button"
             onClick={this.download}
             type="button"
           >
-            Click here
+            Download the Image
           </button>
-        </p>
+          or
+          <button
+            className="App-twitter-button"
+            onClick={this.onShareTwitter}
+            type="button"
+          >
+            Share on Twitter
+          </button>
+        </div>
+
         <canvas ref={el => (this.canvas = el)} />
       </div>
     );
