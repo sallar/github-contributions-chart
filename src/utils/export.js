@@ -16,7 +16,7 @@ export async function shareToTwitter(canvas) {
   try {
     const dataUrl = canvas.toDataURL();
     const res = await axios.post("/twitter", {
-      dataUrl
+      image: dataUrl
     });
     const url = window.encodeURIComponent(res.data.image_url);
     const text = "Happy Coding! https://github-contributions.now.sh";
