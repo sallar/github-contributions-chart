@@ -1,40 +1,36 @@
 import React, { Component } from "react";
 import { drawContributions } from "github-contributions-canvas";
-import { download } from "../../utils/export";
-import GithubContribution from "../../services/github-contribution";
-import InputField from "../InputField";
-import Button from "../Button";
-import GithubStarLink from "../GithubStarLink";
-import ErrorResponse from "../ErrorResponse";
-import Loading from "../Loading";
-import ContributionGraph from "../ContributionGraph";
+import { download } from "../utils/export";
+import InputField from "./InputField";
+import Button from "./Button";
+import GithubStarLink from "./GithubStarLink";
+import ErrorResponse from "./ErrorResponse";
+import Loading from "./Loading";
+import ContributionGraph from "./ContributionGraph";
+
+const BASE_URL = 'https://github-contributions-api.now.sh/v1/';
+
+const THEMES = {
+  standard: "GitHub",
+  halloween: "Halloween",
+  teal: "Teal",
+  leftPad: "@left_pad",
+  dracula: "Dracula",
+  blue: "Blue",
+  panda: "Panda 🐼"
+};
 
 class App extends Component {
-  constructor (props) {
-    super();
 
-    this.canvas = null;
-
-    this.availableThemes = {
-      standard: "GitHub",
-      halloween: "Halloween",
-      teal: "Teal",
-      leftPad: "@left_pad",
-      dracula: "Dracula",
-      blue: "Blue",
-      panda: "Panda 🐼"
-    };
-  
-    this.state = {
-      loading: false,
-      data: null,
-      error: null,
-      username: "",
-      theme: "standard"
-    };
-
-    this.handleChangeTheme = this.handleChangeTheme.bind(this);
+  state = {
+    loading: false,
+    data: null,
+    error: null,
+    username: "",
+    theme: "standard"
   }
+
+  canvas = null;
 
   handleUsernameChange = e => {
     this.setState({
@@ -46,10 +42,10 @@ class App extends Component {
     e.preventDefault();
     this.setState({ loading: true, error: null });
 
-    GithubContribution.getByUsername(this.state.username)
+    fetch(`${BASE_URL}${this.state.username}`)
       .then(res => res.json())
       .then(res => {
-        if (GithubContribution.emptyYears(res.years)) {
+        if (res.years.length === 0) {
           return this.setState({
             error: "Could not find your profile",
             data: null,
@@ -94,16 +90,18 @@ class App extends Component {
   _renderThemes = () => {
     return (
       <div className="App-themes">
-        {Object.keys(this.availableThemes).map(themeName => (
+        {Object.keys(THEMES).map(themeName => (
           <label key={themeName}>
             <InputField
               type="radio"
               name="theme"
               checked={this.state.theme === themeName}
               value={themeName}
-              onChange={this.handleChangeTheme}
+              onChange={(event) => {
+                this.handleChangeTheme(event);
+              }}
             />{" "}
-            {this.availableThemes[themeName]}
+            {THEMES[themeName]}
           </label>
         ))}
       </div>
