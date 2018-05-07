@@ -32,6 +32,10 @@ class App extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
+    this.fetchData();
+  };
+
+  fetchData = () => {
     this.setState({ loading: true, error: null });
     fetchData(this.state.username)
       .then(({ data }) => {
@@ -199,6 +203,24 @@ class App extends Component {
         <p>{this.state.error}</p>
       </div>
     );
+  };
+
+  componentDidMount = () => {
+    if (this.getParameterByName("username")) {
+      this.setState({ username: this.getParameterByName("username") }, () => {
+        return this.fetchData();
+      });
+    }
+  };
+
+  getParameterByName = (name, url) => {
+    if (!url) url = window.location.href;
+    name = name.replace(/[[]]/g, "$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+      results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return "";
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
   };
 }
 
