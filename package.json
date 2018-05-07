@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "dependencies": {
     "axios": "^0.18.0",
-    "github-contributions-canvas": "0.0.9",
+    "github-contributions-canvas": "^0.1.0",
     "moment": "^2.22.1",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
