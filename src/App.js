@@ -6,6 +6,7 @@ import "./App.css";
 
 class App extends Component {
   canvas = null;
+  inputRef = null;
   availableThemes = {
     standard: "GitHub",
     halloween: "Halloween",
@@ -23,6 +24,12 @@ class App extends Component {
     username: "",
     theme: "standard"
   };
+
+  componentDidMount() {
+    if (this.inputRef) {
+      this.inputRef.focus();
+    }
+  }
 
   handleUsernameChange = e => {
     this.setState({
@@ -178,6 +185,7 @@ class App extends Component {
     return (
       <form onSubmit={this.handleSubmit}>
         <input
+          ref={(ref) => { this.inputRef = ref }}
           placeholder="Your GitHub Username"
           onChange={this.handleUsernameChange}
           value={this.state.username}
