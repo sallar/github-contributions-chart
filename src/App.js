@@ -49,7 +49,10 @@ class App extends Component {
             loading: false
           });
         }
-        this.setState({ data, loading: false }, () => this.draw());
+        this.setState({ data, loading: false }, () => {
+          this.draw();
+          this.inputRef.blur();
+        });
       })
       .catch(err => {
         this.setState({
