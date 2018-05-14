@@ -14,7 +14,8 @@ class App extends Component {
     leftPad: "@left_pad",
     dracula: "Dracula",
     blue: "Blue",
-    panda: "Panda 🐼"
+    panda: "Panda 🐼",
+    sunny: "Sunny"
   };
 
   state = {
