@@ -21,6 +21,20 @@ Running locally:
 $ npm start ./github-contributions-chart
 ```
 
+## Run with docker
+
+build
+
+```
+docker build -t github-contributions-chart .
+```
+
+run
+
+```
+$ docker run --name github-contributions-chart -p 3000:3000 -d github-contributions-chart
+```
+
 ## Adding themes
 
 Add your theme to [sallar/github-contribution-canvas](https://github.com/sallar/github-contributions-canvas) repo and also send a PR here to add the name of the theme to the list.
