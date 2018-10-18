@@ -16,7 +16,8 @@ class App extends Component {
     blue: "Blue",
     panda: "Panda 🐼",
     sunny: "Sunny",
-    pink: "Pink"
+    pink: "Pink",
+    YlGnBu: "YlGnBu"
   };
 
   state = {
