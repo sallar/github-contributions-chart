@@ -44,7 +44,7 @@ h4 {
   margin-top: 1em;
 }
 
-form {
+.input-container {
   margin: 3em 0 0.5rem;
   display: flex;
   justify-content: center;
