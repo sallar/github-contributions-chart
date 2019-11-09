@@ -41,7 +41,7 @@ class App extends Component {
     e.preventDefault();
     this.setState({ loading: true, error: null });
     fetchData(this.state.username)
-      .then(({ data }) => {
+      .then((data) => {
         if (data.years.length === 0) {
           return this.setState({
             error: "Could not find your profile",

@@ -1,4 +1,4 @@
-const API_URL = "https://github-contributions-api.now.sh/v1/";
+const API_URL = "/api/v1/";
 
 export function fetchData(username) {
   return fetch(API_URL + username).then(res => res.json());
@@ -20,7 +20,7 @@ export function download(canvas) {
 
 export async function uploadToTwitter(canvas) {
   try {
-    const { data } = await fetch(API_URL + "tweetMedia", {
+    const data = await fetch(API_URL + "tweetMedia", {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
