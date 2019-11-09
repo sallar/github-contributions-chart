@@ -1,6 +1,11 @@
 {
-  "alias": "github-contributions.now.sh",
-  "env": {
-    "NODE_ENV": "production"
+  "version": 2,
+  "build": {
+    "env": {
+      "TWITTER_CONSUMER_KEY": "@twitter-consumer-key",
+      "TWITTER_CONSUMER_SECRET": "@twitter-consumer-secret",
+      "TWITTER_ACCESS_TOKEN_KEY": "@twitter-access-token-key",
+      "TWITTER_ACCESS_TOKEN_SECRET": "@twitter-access-token-secret"
+    }
   }
 }

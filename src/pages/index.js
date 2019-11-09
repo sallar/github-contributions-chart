@@ -1,8 +1,5 @@
 import React, { Component } from "react";
-import { drawContributions } from "github-contributions-canvas";
-import { download, uploadToTwitter, fetchData } from "./utils/export";
-import loadingImage from "./loading.gif";
-import "./App.css";
+import { download, uploadToTwitter, fetchData } from "../utils/export";
 
 class App extends Component {
   canvas = null;
@@ -44,7 +41,7 @@ class App extends Component {
     e.preventDefault();
     this.setState({ loading: true, error: null });
     fetchData(this.state.username)
-      .then(({ data }) => {
+      .then((data) => {
         if (data.years.length === 0) {
           return this.setState({
             error: "Could not find your profile",
@@ -81,12 +78,13 @@ class App extends Component {
     uploadToTwitter(this.canvas);
   };
 
-  draw() {
+  async draw() {
     if (!this.canvas) {
       return this.setState({
         error: "Something went wrong... Check back later."
       });
     }
+    const {drawContributions} = await import('github-contributions-canvas')
     drawContributions(this.canvas, {
       data: this.state.data,
       username: this.state.username,
@@ -154,7 +152,7 @@ class App extends Component {
   _renderLoading = () => {
     return (
       <div className="App-loading">
-        <img src={loadingImage} alt="Loading..." width={200} />
+        <img src={'/loading.gif'} alt="Loading..." width={200} />
         <p>Please wait, I{`'`}m visiting your profile...</p>
       </div>
     );
