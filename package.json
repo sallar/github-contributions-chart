@@ -1,7 +1,7 @@
 {
   "name": "github-contribution-chart",
   "description": "Generate an image of all your GitHub contributions",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "engines": {
     "node": ">=10"
   },
