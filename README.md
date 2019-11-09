@@ -2,24 +2,27 @@
 
 Generates an image of all your **GitHub** contributions since you have signed up, so you can use it in social media.
 
-The API for this project [lives here](https://github.com/sallar/github-contributions-api) which is also written by me since GitHub doesn't provide a way to access user statistics through it's official API.
+The API for this project lives in the `src/pages/api` directory since GitHub doesn't provide a way to access user statistics through it's official API.
 
-The drawing mechanism lives in [its own repository](https://github.com/sallar/github-contributions-canvas) too.
+The drawing mechanism lives in [the sallar/github-contributions-canvas repository](https://github.com/sallar/github-contributions-canvas).
 
 ## Install
 
 Install the packages using [NPM](https://nodejs.org/en/):
 ```
-$ npm install ./github-contributions-chart
+$ npm install
 ```
-Or [download as ZIP](https://github.com/sallar/github-contributions-chart/archive/master.zip).
 
 ## How to run
 
 Running locally:
 ```
-$ npm start ./github-contributions-chart
+$ npm run dev
 ```
+
+## Deployment
+
+This project is deployed on [ZEIT Now](https://zeit.co/).
 
 ## Adding themes
 
