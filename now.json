@@ -1,4 +1,5 @@
 {
+  "version": 2,
   "build": {
     "env": {
       "TWITTER_CONSUMER_KEY": "@twitter-consumer-key",
