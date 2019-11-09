@@ -6,6 +6,8 @@ module.exports = {
     TWITTER_ACCESS_TOKEN_SECRET: process.env.TWITTER_ACCESS_TOKEN_SECRET
   },
   experimental: {
-    css: true
+    css: true,
+    granularChunks: true,
+    modern: true
   }
 }
