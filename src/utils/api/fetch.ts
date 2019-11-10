@@ -1,8 +1,8 @@
-import cheerio from 'cheerio'
-import fetch from 'node-fetch'
-import _ from 'lodash'
+import cheerio from "cheerio";
+import fetch from "node-fetch";
+import _ from "lodash";
 
-const COLOR_MAP = {
+const COLOR_MAP: { [key: string]: number } = {
   "#196127": 4,
   "#239a3b": 3,
   "#7bc96f": 2,
@@ -10,7 +10,7 @@ const COLOR_MAP = {
   "#ebedf0": 0
 };
 
-async function fetchYears(username) {
+async function fetchYears(username: string) {
   const data = await fetch(`https://github.com/${username}`);
   const $ = cheerio.load(await data.text());
   return $(".js-year-link")
@@ -24,7 +24,7 @@ async function fetchYears(username) {
     });
 }
 
-async function fetchDataForYear(url, year, format) {
+async function fetchDataForYear(url: string, year: string, format: string) {
   const data = await fetch(`https://github.com${url}`);
   const $ = cheerio.load(await data.text());
   const $days = $("rect.day");
@@ -46,7 +46,7 @@ async function fetchDataForYear(url, year, format) {
       end: $($days.get($days.length - 1)).attr("data-date")
     },
     contributions: (() => {
-      const parseDay = day => {
+      const parseDay = (day: number) => {
         const $day = $(day);
         const date = $day
           .attr("data-date")
@@ -78,16 +78,17 @@ async function fetchDataForYear(url, year, format) {
   };
 }
 
-export async function fetchDataForAllYears(username, format) {
+export async function fetchDataForAllYears(username: string, format: string) {
   const years = await fetchYears(username);
+
   return Promise.all(
     years.map(year => fetchDataForYear(year.href, year.text, format))
   ).then(resp => {
     return {
       years: (() => {
         const obj = {};
-        const arr = resp.map(year => {
-          const { contributions, ...rest } = year;
+        const arr = resp.map(data => {
+          const { contributions, ...rest } = data;
           _.setWith(obj, [rest.year], rest, Object);
           return rest;
         });
@@ -97,10 +98,26 @@ export async function fetchDataForAllYears(username, format) {
         format === "nested"
           ? resp.reduce((acc, curr) => _.merge(acc, curr.contributions))
           : resp
-              .reduce((list, curr) => [...list, ...curr.contributions], [])
-              .sort((a, b) => {
-                if (a.date < b.date) return 1;
-                else if (a.date > b.date) return -1;
+              .reduce(
+                (
+                  list: {
+                    [key: string]: {
+                      year: string;
+                      total: number;
+                      range: {
+                        start: string;
+                        end: string;
+                      };
+                      contributions: any;
+                    };
+                  }[],
+                  curr
+                ) => [...list, ...curr.contributions],
+                []
+              )
+              .sort(({ date: aDate }, b) => {
+                if (aDate < b.date) return 1;
+                else if (aDate > b.date) return -1;
                 return 0;
               })
     };

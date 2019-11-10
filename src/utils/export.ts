@@ -1,12 +1,12 @@
 const API_URL = "/api/v1/";
 
-export function fetchData(username) {
+export function fetchData(username: string) {
   return fetch(API_URL + username).then(res => res.json());
 }
 
-export function download(canvas) {
+export function download(canvas: HTMLCanvasElement | null) {
   try {
-    const dataUrl = canvas.toDataURL();
+    const dataUrl = canvas!.toDataURL();
     const a = document.createElement("a");
     document.body.insertAdjacentElement("beforeend", a);
     a.download = "contributions.png";
@@ -18,15 +18,15 @@ export function download(canvas) {
   }
 }
 
-export async function uploadToTwitter(canvas) {
+export async function uploadToTwitter(canvas: HTMLCanvasElement | null) {
   try {
     const data = await fetch(API_URL + "tweetMedia", {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        image: canvas.toDataURL()
+        image: canvas!.toDataURL()
       })
     }).then(res => res.json());
     const url = window.encodeURIComponent(data.mediaUrl);

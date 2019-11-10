@@ -1,15 +1,15 @@
-import Twitter from 'twitter'
-import dataUriToBuffer from 'data-uri-to-buffer'
-import {error} from './alerts'
+import Twitter from "twitter";
+import dataUriToBuffer from "data-uri-to-buffer";
+import { error } from "./alerts";
 
 const twitterClient = new Twitter({
-  consumer_key: process.env.TWITTER_CONSUMER_KEY,
-  consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
-  access_token_key: process.env.TWITTER_ACCESS_TOKEN_KEY,
-  access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET
+  consumer_key: process.env.TWITTER_CONSUMER_KEY || "",
+  consumer_secret: process.env.TWITTER_CONSUMER_SECRET || "",
+  access_token_key: process.env.TWITTER_ACCESS_TOKEN_KEY || "",
+  access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET || ""
 });
 
-export async function getTwitterMediaUrl (base64data) {
+export async function getTwitterMediaUrl(base64data: string) {
   try {
     const buff = dataUriToBuffer(base64data);
     const mediaResponse = await twitterClient.post("media/upload", {
@@ -24,7 +24,7 @@ export async function getTwitterMediaUrl (base64data) {
       "https://"
     );
   } catch (err) {
-    console.error(err)
+    console.error(err);
     throw new Error(error.imageUploadFailed);
   }
 }
