@@ -1,6 +1,7 @@
 import cheerio from "cheerio";
 import fetch from "node-fetch";
 import _ from "lodash";
+import { ContributionData } from "github-contributions-canvas";
 
 const COLOR_MAP: { [key: string]: number } = {
   "#196127": 4,
@@ -108,16 +109,16 @@ export async function fetchDataForAllYears(username: string, format: string) {
                         start: string;
                         end: string;
                       };
-                      contributions: any;
+                      contributions: ContributionData[];
                     };
                   }[],
                   curr
                 ) => [...list, ...curr.contributions],
                 []
               )
-              .sort(({ date: aDate }, b) => {
-                if (aDate < b.date) return 1;
-                else if (aDate > b.date) return -1;
+              .sort((a, b) => {
+                if (a.date < b.date) return 1;
+                else if (a.date > b.date) return -1;
                 return 0;
               })
     };

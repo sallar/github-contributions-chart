@@ -4,7 +4,7 @@ export function fetchData(username: string) {
   return fetch(API_URL + username).then(res => res.json());
 }
 
-export function download(canvas: HTMLCanvasElement | null) {
+export function download(canvas?: HTMLCanvasElement) {
   try {
     const dataUrl = canvas!.toDataURL();
     const a = document.createElement("a");
@@ -18,7 +18,7 @@ export function download(canvas: HTMLCanvasElement | null) {
   }
 }
 
-export async function uploadToTwitter(canvas: HTMLCanvasElement | null) {
+export async function uploadToTwitter(canvas?: HTMLCanvasElement) {
   try {
     const data = await fetch(API_URL + "tweetMedia", {
       method: "POST",
