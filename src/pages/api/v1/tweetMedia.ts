@@ -1,11 +1,13 @@
-import { getTwitterMediaUrl } from '../../../utils/api/twitter'
-import { error } from '../../../utils/api/alerts'
+import { NextApiRequest, NextApiResponse } from "next";
 
-export default async (req, res) => {
+import { getTwitterMediaUrl } from "../../../utils/api/twitter";
+import { error } from "../../../utils/api/alerts";
+
+export default async (req: NextApiRequest, res: NextApiResponse) => {
   const { image } = req.body;
 
   if (typeof image !== "string") {
-    return res.status(500).send(error.imageInvalid)
+    return res.status(500).send(error.imageInvalid);
   }
 
   getTwitterMediaUrl(image)
@@ -14,8 +16,8 @@ export default async (req, res) => {
         mediaUrl
       })
     )
-    .catch((err) => {
-      console.error(err)
-      res.status(500).send(err.message)
+    .catch(err => {
+      console.error(err);
+      res.status(500).send(err.message);
     });
-}
+};

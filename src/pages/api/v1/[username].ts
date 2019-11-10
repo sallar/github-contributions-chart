@@ -1,8 +1,10 @@
-import { fetchDataForAllYears } from '../../../utils/api/fetch'
+import { NextApiRequest, NextApiResponse } from "next";
 
-export default async (req, res) => {
+import { fetchDataForAllYears } from "../../../utils/api/fetch";
+
+export default async (req: NextApiRequest, res: NextApiResponse) => {
   const { username, format } = req.query;
   const data = await fetchDataForAllYears(username, format);
-  res.setHeader('Cache-Control', 's-maxage=3600, stale-while-revalidate')
+  res.setHeader("Cache-Control", "s-maxage=3600, stale-while-revalidate");
   res.json(data);
-}
+};
