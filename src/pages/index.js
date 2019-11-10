@@ -1,21 +1,10 @@
 import React, { Component } from "react";
 import { download, uploadToTwitter, fetchData } from "../utils/export";
+import ThemeSelector from "../components/themes";
 
 class App extends Component {
   canvas = null;
   inputRef = null;
-  availableThemes = {
-    standard: "GitHub",
-    halloween: "Halloween",
-    teal: "Teal",
-    leftPad: "@left_pad",
-    dracula: "Dracula",
-    blue: "Blue",
-    panda: "Panda 🐼",
-    sunny: "Sunny",
-    pink: "Pink",
-    YlGnBu: "YlGnBu"
-  };
 
   state = {
     loading: false,
@@ -41,7 +30,7 @@ class App extends Component {
     e.preventDefault();
     this.setState({ loading: true, error: null });
     fetchData(this.state.username)
-      .then((data) => {
+      .then(data => {
         if (data.years.length === 0) {
           return this.setState({
             error: "Could not find your profile",
@@ -62,8 +51,8 @@ class App extends Component {
       });
   };
 
-  handleChangeTheme = e => {
-    this.setState({ theme: e.target.value }, () => {
+  handleChangeTheme = themeName => {
+    this.setState({ theme: themeName }, () => {
       return this.canvas && this.draw();
     });
   };
@@ -84,7 +73,7 @@ class App extends Component {
         error: "Something went wrong... Check back later."
       });
     }
-    const {drawContributions} = await import('github-contributions-canvas')
+    const { drawContributions } = await import("github-contributions-canvas");
     drawContributions(this.canvas, {
       data: this.state.data,
       username: this.state.username,
@@ -97,11 +86,29 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <h1>GitHub Contributions Chart Generator</h1>
-          <h4>All your contributions in one image!</h4>
+          <div className="App-logo">
+            <img src="/tentocats.jpg" width={200} alt="Tentocats" />
+            <h1>GitHub Contributions Chart Generator</h1>
+            <h4>All your contributions in one image!</h4>
+          </div>
           {this._renderForm()}
-          {this._renderThemes()}
+          <ThemeSelector
+            currentTheme={this.state.theme}
+            onChangeTheme={this.handleChangeTheme}
+          />
           {this._renderGithubButton()}
+          <footer>
+            <p>
+              Not affiliated with GitHub Inc. Octocat iullustration made by{" "}
+              <a
+                href="https://octodex.github.com/tentocat/"
+                rel="noopener nofollow"
+              >
+                GitHub design team
+              </a>
+              .
+            </p>
+          </footer>
         </header>
         <section className="App-content">
           {this.state.loading && this._renderLoading()}
@@ -113,25 +120,6 @@ class App extends Component {
       </div>
     );
   }
-
-  _renderThemes = () => {
-    return (
-      <div className="App-themes">
-        {Object.keys(this.availableThemes).map(themeName => (
-          <label key={themeName}>
-            <input
-              type="radio"
-              name="theme"
-              checked={this.state.theme === themeName}
-              value={themeName}
-              onChange={this.handleChangeTheme}
-            />{" "}
-            {this.availableThemes[themeName]}
-          </label>
-        ))}
-      </div>
-    );
-  };
 
   _renderGithubButton = () => {
     return (
@@ -152,7 +140,7 @@ class App extends Component {
   _renderLoading = () => {
     return (
       <div className="App-loading">
-        <img src={'/loading.gif'} alt="Loading..." width={200} />
+        <img src={"/loading.gif"} alt="Loading..." width={200} />
         <p>Please wait, I{`'`}m visiting your profile...</p>
       </div>
     );
@@ -189,7 +177,9 @@ class App extends Component {
     return (
       <form onSubmit={this.handleSubmit}>
         <input
-          ref={(ref) => { this.inputRef = ref }}
+          ref={ref => {
+            this.inputRef = ref;
+          }}
           placeholder="Your GitHub Username"
           onChange={this.handleUsernameChange}
           value={this.state.username}
