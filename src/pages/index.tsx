@@ -1,10 +1,10 @@
-import React, { Component } from "react";
+import React, { Component, MouseEvent } from "react";
 import { download, uploadToTwitter, fetchData } from "../utils/export";
 
 class App extends Component {
-  canvas = null;
-  inputRef = null;
-  availableThemes = {
+  canvas: HTMLCanvasElement | null = null;
+  inputRef: HTMLInputElement | null = null;
+  availableThemes: { [key: string]: string } = {
     standard: "GitHub",
     halloween: "Halloween",
     teal: "Teal",
@@ -31,17 +31,17 @@ class App extends Component {
     }
   }
 
-  handleUsernameChange = e => {
+  handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({
       username: e.target.value
     });
   };
 
-  handleSubmit = e => {
+  handleSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
     this.setState({ loading: true, error: null });
     fetchData(this.state.username)
-      .then((data) => {
+      .then(data => {
         if (data.years.length === 0) {
           return this.setState({
             error: "Could not find your profile",
@@ -51,7 +51,7 @@ class App extends Component {
         }
         this.setState({ data, loading: false }, () => {
           this.draw();
-          this.inputRef.blur();
+          this.inputRef!.blur();
         });
       })
       .catch(err => {
@@ -62,18 +62,18 @@ class App extends Component {
       });
   };
 
-  handleChangeTheme = e => {
+  handleChangeTheme = (e: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({ theme: e.target.value }, () => {
       return this.canvas && this.draw();
     });
   };
 
-  download = e => {
+  download = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     download(this.canvas);
   };
 
-  onShareTwitter = e => {
+  onShareTwitter = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     uploadToTwitter(this.canvas);
   };
@@ -84,7 +84,7 @@ class App extends Component {
         error: "Something went wrong... Check back later."
       });
     }
-    const {drawContributions} = await import('github-contributions-canvas')
+    const { drawContributions } = await import("github-contributions-canvas");
     drawContributions(this.canvas, {
       data: this.state.data,
       username: this.state.username,
@@ -152,7 +152,7 @@ class App extends Component {
   _renderLoading = () => {
     return (
       <div className="App-loading">
-        <img src={'/loading.gif'} alt="Loading..." width={200} />
+        <img src={"/loading.gif"} alt="Loading..." width={200} />
         <p>Please wait, I{`'`}m visiting your profile...</p>
       </div>
     );
@@ -189,7 +189,9 @@ class App extends Component {
     return (
       <form onSubmit={this.handleSubmit}>
         <input
-          ref={(ref) => { this.inputRef = ref }}
+          ref={ref => {
+            this.inputRef = ref;
+          }}
           placeholder="Your GitHub Username"
           onChange={this.handleUsernameChange}
           value={this.state.username}
