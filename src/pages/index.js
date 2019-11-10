@@ -1,4 +1,4 @@
-import React, { Component, useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { download, uploadToTwitter, fetchData } from "../utils/export";
 import ThemeSelector from "../components/themes";
 
