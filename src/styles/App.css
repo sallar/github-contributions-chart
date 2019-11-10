@@ -16,6 +16,15 @@
   overflow-y: scroll;
   padding: 1rem;
   text-align: center;
+  display: flex;
+}
+
+.App-centered {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem 0;
 }
 
 .App-title {
@@ -29,6 +38,7 @@
 .App-result {
   max-width: 676px;
   margin: 0 auto;
+  flex: 1;
 }
 
 .App-result canvas {
@@ -217,6 +227,10 @@ footer a {
   form input {
     margin-bottom: 0.5rem;
     text-align: center;
+  }
+
+  .App-buttons button {
+    padding: 0 0.5rem;
   }
 }
 
