@@ -175,7 +175,7 @@ const App = () => {
         {_renderGithubButton()}
         <footer>
           <p>
-            Not affiliated with GitHub Inc. Octocat iullustration made by{" "}
+            Not affiliated with GitHub Inc. Octocat illustration made by{" "}
             <a
               href="https://octodex.github.com/tentocat/"
               rel="noopener nofollow"
