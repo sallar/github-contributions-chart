@@ -3,10 +3,10 @@ import fetch from 'node-fetch'
 import _ from 'lodash'
 
 const COLOR_MAP = {
-  "#196127": 4,
-  "#239a3b": 3,
-  "#7bc96f": 2,
-  "#c6e48b": 1,
+  "#216e39": 4,
+  "#30a14e": 3,
+  "#40c463": 2,
+  "#9be9a8": 1,
   "#ebedf0": 0
 };
 
