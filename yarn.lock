@@ -3156,10 +3156,10 @@ getpass@^0.1.1:
   dependencies:
     assert-plus "^1.0.0"
 
-github-contributions-canvas@^0.3.0:
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/github-contributions-canvas/-/github-contributions-canvas-0.3.0.tgz#77d8bb6d9fc7c58e12f427a7932efb005f739aa6"
-  integrity sha512-0B4ZoKNEFLT0Bofx5HYi2MZtFDQFZ5BCDn28S0BHyz3wFyon9cjejfzCyy4ocMq92K3XhuGMtlhYktb+IJc4Ww==
+github-contributions-canvas@0.4.0:
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/github-contributions-canvas/-/github-contributions-canvas-0.4.0.tgz#9f2a772766d5ba67ea8d90bd123882db7b5a60a6"
+  integrity sha512-DfBVS3yzzToQlO1l0TfMk9WbvKRaAauXi9lnJQb63/NuUmDrUbydc7UcYhdZt8uHyP9/CbPA8qMVYCV+fht5TA==
   dependencies:
     moment "^2.22.1"
 

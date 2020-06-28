@@ -4,6 +4,7 @@ import { themes } from "github-contributions-canvas/dist/themes";
 
 const availableThemes = {
   standard: "GitHub",
+  classic: "GitHub Classic",
   halloween: "Halloween",
   teal: "Teal",
   leftPad: "@left_pad",
@@ -33,7 +34,7 @@ const ThemeSelector = ({ currentTheme, onChangeTheme }) => (
       <span>Select a theme:</span>
     </h6>
     <div className="App-themes-list">
-      {Object.keys(availableThemes).map(themeName => (
+      {Object.keys(availableThemes).map((themeName) => (
         <label key={themeName}>
           <input
             type="radio"

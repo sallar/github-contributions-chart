@@ -1,12 +1,12 @@
-import cheerio from 'cheerio'
-import fetch from 'node-fetch'
-import _ from 'lodash'
+import cheerio from "cheerio";
+import fetch from "node-fetch";
+import _ from "lodash";
 
 const COLOR_MAP = {
-  "#196127": 4,
-  "#239a3b": 3,
-  "#7bc96f": 2,
-  "#c6e48b": 1,
+  "#216e39": 4,
+  "#30a14e": 3,
+  "#40c463": 2,
+  "#9be9a8": 1,
   "#ebedf0": 0
 };
 
@@ -15,7 +15,7 @@ async function fetchYears(username) {
   const $ = cheerio.load(await data.text());
   return $(".js-year-link")
     .get()
-    .map(a => {
+    .map((a) => {
       const $a = $(a);
       return {
         href: $a.attr("href"),
@@ -46,12 +46,12 @@ async function fetchDataForYear(url, year, format) {
       end: $($days.get($days.length - 1)).attr("data-date")
     },
     contributions: (() => {
-      const parseDay = day => {
+      const parseDay = (day) => {
         const $day = $(day);
         const date = $day
           .attr("data-date")
           .split("-")
-          .map(d => parseInt(d, 10));
+          .map((d) => parseInt(d, 10));
         const color = $day.attr("fill");
         const value = {
           date: $day.attr("data-date"),
@@ -63,7 +63,7 @@ async function fetchDataForYear(url, year, format) {
       };
 
       if (format !== "nested") {
-        return $days.get().map(day => parseDay(day).value);
+        return $days.get().map((day) => parseDay(day).value);
       }
 
       return $days.get().reduce((o, day) => {
@@ -81,12 +81,12 @@ async function fetchDataForYear(url, year, format) {
 export async function fetchDataForAllYears(username, format) {
   const years = await fetchYears(username);
   return Promise.all(
-    years.map(year => fetchDataForYear(year.href, year.text, format))
-  ).then(resp => {
+    years.map((year) => fetchDataForYear(year.href, year.text, format))
+  ).then((resp) => {
     return {
       years: (() => {
         const obj = {};
-        const arr = resp.map(year => {
+        const arr = resp.map((year) => {
           const { contributions, ...rest } = year;
           _.setWith(obj, [rest.year], rest, Object);
           return rest;
