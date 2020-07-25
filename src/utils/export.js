@@ -18,6 +18,21 @@ export function download(canvas) {
   }
 }
 
+export function downloadJSON(data) {
+  try {
+    const dataString = JSON.stringify(data);
+    const dataUrl = "data:text/json;charset=utf-8," + encodeURIComponent(dataString);
+    const a = document.createElement("a");
+    document.body.insertAdjacentElement("beforeend", a);
+    a.download = "contributions.json";
+    a.href = dataUrl;
+    a.click();
+    document.body.removeChild(a);
+  } catch (err) {
+    console.error(err);
+  }
+}
+
 export async function uploadToTwitter(canvas) {
   try {
     const data = await fetch(API_URL + "tweetMedia", {
