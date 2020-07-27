@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
-import { download, uploadToTwitter, fetchData } from "../utils/export";
+import { download, uploadToTwitter, fetchData, downloadJSON } from "../utils/export";
 import ThemeSelector from "../components/themes";
 
 const App = () => {
@@ -50,6 +50,13 @@ const App = () => {
   const onDownload = e => {
     e.preventDefault();
     download(canvasRef.current);
+  };
+
+  const onDownloadJson = e => {
+    e.preventDefault();
+    if (data != null) {
+      downloadJSON(data);
+    }
   };
 
   const onShareTwitter = e => {
@@ -159,6 +166,21 @@ const App = () => {
     );
   };
 
+  const _renderDownloadAsJSON = () => {
+    if (data === null) return;
+    return (
+      <a
+        href="#" 
+        onClick={onDownloadJson}
+      >
+        <span role="img" aria-label="Bar Chart">
+        📊
+        </span>{" "}
+        Download data as JSON for your own visualizations
+      </a>
+    );
+  };
+
   return (
     <div className="App">
       <header className="App-header">
@@ -184,6 +206,7 @@ const App = () => {
             </a>
             .
           </p>
+          {_renderDownloadAsJSON()}
         </footer>
       </header>
       <section className="App-content">
