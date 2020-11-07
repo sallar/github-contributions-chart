@@ -10,6 +10,14 @@ const COLOR_MAP = {
   "#ebedf0": 0
 };
 
+const CSS_COLOR_MAP = {
+  "var(--color-calendar-graph-day-bg)": "#ebedf0",
+  "var(--color-calendar-graph-day-L1-bg)": "#9be9a8",
+  "var(--color-calendar-graph-day-L2-bg)": "#40c463",
+  "var(--color-calendar-graph-day-L3-bg)": "#30a14e",
+  "var(--color-calendar-graph-day-L4-bg)": "#216e39"
+};
+
 async function fetchYears(username) {
   const data = await fetch(`https://github.com/${username}`);
   const $ = cheerio.load(await data.text());
@@ -52,7 +60,7 @@ async function fetchDataForYear(url, year, format) {
           .attr("data-date")
           .split("-")
           .map((d) => parseInt(d, 10));
-        const color = $day.attr("fill");
+        const color = CSS_COLOR_MAP[$day.attr("fill")];
         const value = {
           date: $day.attr("data-date"),
           count: parseInt($day.attr("data-count"), 10),
