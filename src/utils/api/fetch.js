@@ -60,7 +60,14 @@ async function fetchDataForYear(url, year, format) {
           .attr("data-date")
           .split("-")
           .map((d) => parseInt(d, 10));
-        const color = CSS_COLOR_MAP[$day.attr("fill")];
+        // Github seems to change the behavior of this "color" field
+        // See https://github.com/sallar/github-contributions-chart/issues/78
+        // See https://github.com/sallar/github-contributions-chart/issues/87
+        // See https://github.com/sallar/github-contributions-chart/issues/89
+        const color = $day.attr("fill");
+        if (color in CSS_COLOR_MAP) {
+          color = CSS_COLOR_MAP[color];
+        }
         const value = {
           date: $day.attr("data-date"),
           count: parseInt($day.attr("data-count"), 10),
