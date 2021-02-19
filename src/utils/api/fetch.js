@@ -3,19 +3,11 @@ import fetch from "node-fetch";
 import _ from "lodash";
 
 const COLOR_MAP = {
-  "#216e39": 4,
-  "#30a14e": 3,
-  "#40c463": 2,
-  "#9be9a8": 1,
-  "#ebedf0": 0
-};
-
-const CSS_COLOR_MAP = {
-  "var(--color-calendar-graph-day-bg)": "#ebedf0",
-  "var(--color-calendar-graph-day-L1-bg)": "#9be9a8",
-  "var(--color-calendar-graph-day-L2-bg)": "#40c463",
-  "var(--color-calendar-graph-day-L3-bg)": "#30a14e",
-  "var(--color-calendar-graph-day-L4-bg)": "#216e39"
+  0: "#ebedf0",
+  1: "#9be9a8",
+  2: "#40c463",
+  3: "#30a14e",
+  4: "#216e39"
 };
 
 async function fetchYears(username) {
@@ -35,7 +27,7 @@ async function fetchYears(username) {
 async function fetchDataForYear(url, year, format) {
   const data = await fetch(`https://github.com${url}`);
   const $ = cheerio.load(await data.text());
-  const $days = $("rect.day");
+  const $days = $("svg.js-calendar-graph-svg rect.ContributionCalendar-day");
   const contribText = $(".js-yearly-contributions h2")
     .text()
     .trim()
@@ -60,12 +52,12 @@ async function fetchDataForYear(url, year, format) {
           .attr("data-date")
           .split("-")
           .map((d) => parseInt(d, 10));
-        const color = CSS_COLOR_MAP[$day.attr("fill")];
+        const color = COLOR_MAP[$day.attr("data-level")];
         const value = {
           date: $day.attr("data-date"),
           count: parseInt($day.attr("data-count"), 10),
           color,
-          intensity: COLOR_MAP[color.toLowerCase()] || 0
+          intensity: $day.attr("data-level") || 0
         };
         return { date, value };
       };
