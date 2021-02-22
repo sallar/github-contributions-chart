@@ -11,7 +11,7 @@
     "github-contributions-canvas": "^0.5.2",
     "lodash": "^4.17.19",
     "next": "^9.3.2",
-    "node-fetch": "^2.6.0",
+    "node-fetch": "^2.6.1",
     "normalize.css": "^8.0.1",
     "prop-types": "^15.7.2",
     "react": "^16.11.0",
