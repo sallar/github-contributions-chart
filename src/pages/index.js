@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
-import { download, uploadToTwitter, fetchData, downloadJSON } from "../utils/export";
+import { download, uploadToTwitter, fetchData, downloadJSON, cleanUsername } from "../utils/export";
 import ThemeSelector from "../components/themes";
 
 const App = () => {
@@ -21,6 +21,7 @@ const App = () => {
   const handleSubmit = e => {
     e.preventDefault();
 
+    setUsername(cleanUsername(username));
     setLoading(true);
     setError(null);
     setData(null);
