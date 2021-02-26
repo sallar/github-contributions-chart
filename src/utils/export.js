@@ -53,3 +53,7 @@ export async function uploadToTwitter(canvas) {
     console.error(err);
   }
 }
+
+export function cleanUsername(username){
+  return username.replace(/^(http|https):\/\/(?!www\.)github\.com\//, '');
+}
