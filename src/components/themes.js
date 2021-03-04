@@ -14,7 +14,9 @@ const availableThemes = {
   panda: "Panda 🐼",
   sunny: "Sunny",
   pink: "Pink",
-  YlGnBu: "YlGnBu"
+  YlGnBu: "YlGnBu",
+  solarizedDark: 'Solarized Dark',
+  solarizedLight: 'Solarized Light'
 };
 
 const Preview = ({ themeName }) => (
