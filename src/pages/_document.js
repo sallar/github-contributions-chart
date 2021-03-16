@@ -1,12 +1,12 @@
 import React from "react";
-import Document, { Head, Main, NextScript } from "next/document";
+import Document, { Html, Head, Main, NextScript } from "next/document";
 
 const GA_TRACKING_ID = "UA-118649449-1";
 
 export default class extends Document {
   render() {
     return (
-      <html lang="en">
+      <Html lang="en">
         <Head>
           <script
             async
@@ -53,7 +53,7 @@ export default class extends Document {
           <NextScript />
           <script defer src="https://buttons.github.io/buttons.js"></script>
         </body>
-      </html>
+      </Html>
     );
   }
 }

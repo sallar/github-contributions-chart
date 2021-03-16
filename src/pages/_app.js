@@ -4,7 +4,7 @@ import "../styles/App.css";
 
 import Head from "next/head";
 
-export default ({ Component, pageProps }) => (
+const App = ({ Component, pageProps }) => (
   <>
     <Head>
       <title>GitHub Contributions Chart Generator</title>
@@ -16,3 +16,5 @@ export default ({ Component, pageProps }) => (
     <Component {...pageProps} />
   </>
 );
+
+export default App;
