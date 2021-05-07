@@ -26,7 +26,7 @@ const App = () => {
     setError(null);
     setData(null);
 
-    fetchData(username)
+    fetchData(cleanUsername(username))
       .then(data => {
         setLoading(false);
 
@@ -42,10 +42,6 @@ const App = () => {
         setLoading(false);
         setError("I could not check your profile successfully...");
       });
-  };
-
-  const handleChangeTheme = themeName => {
-    setTheme(themeName);
   };
 
   const onDownload = e => {
