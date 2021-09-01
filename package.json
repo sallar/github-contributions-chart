@@ -10,7 +10,7 @@
     "data-uri-to-buffer": "^3.0.0",
     "github-contributions-canvas": "^0.6.0",
     "lodash": "^4.17.19",
-    "next": "^11.1.0",
+    "next": "^11.1.1",
     "node-fetch": "^2.6.0",
     "normalize.css": "^8.0.1",
     "prop-types": "^15.7.2",
