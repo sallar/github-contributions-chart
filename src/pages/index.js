@@ -2,7 +2,7 @@ import React, { useRef, useState, useEffect } from "react";
 import { download, uploadToTwitter, fetchData, downloadJSON, cleanUsername } from "../utils/export";
 import ThemeSelector from "../components/themes";
 
-const App = () => {
+const App = (props) => {
   const inputRef = useRef();
   const canvasRef = useRef();
   const [loading, setLoading] = useState(false);
@@ -10,6 +10,32 @@ const App = () => {
   const [theme, setTheme] = useState("standard");
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
+
+  useEffect(() => {
+    if (props.username) {
+      setUsername(cleanUsername(props.username));
+      setLoading(true);
+      setError(null);
+      setData(null);
+
+      fetchData(cleanUsername(props.username))
+        .then(data => {
+          setLoading(false);
+
+          if (data.years.length === 0) {
+            setError("Could not find your profile");
+          } else {
+            setData(data);
+            inputRef.current.blur();
+          }
+        })
+        .catch(err => {
+          console.log(err);
+          setLoading(false);
+          setError("I could not check your profile successfully...");
+        });
+    }
+  }, [])
 
   useEffect(() => {
     if (!data) {
