@@ -1,5 +1,11 @@
 import React, { useRef, useState, useEffect } from "react";
-import { download, uploadToTwitter, fetchData, downloadJSON, cleanUsername } from "../utils/export";
+import {
+  download,
+  uploadToTwitter,
+  fetchData,
+  downloadJSON,
+  cleanUsername
+} from "../utils/export";
 import ThemeSelector from "../components/themes";
 
 const App = () => {
@@ -18,7 +24,7 @@ const App = () => {
     draw();
   }, [data, theme]);
 
-  const handleSubmit = e => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
     setUsername(cleanUsername(username));
@@ -27,7 +33,7 @@ const App = () => {
     setData(null);
 
     fetchData(cleanUsername(username))
-      .then(data => {
+      .then((data) => {
         setLoading(false);
 
         if (data.years.length === 0) {
@@ -37,26 +43,26 @@ const App = () => {
           inputRef.current.blur();
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
         setLoading(false);
         setError("I could not check your profile successfully...");
       });
   };
 
-  const onDownload = e => {
+  const onDownload = (e) => {
     e.preventDefault();
     download(canvasRef.current);
   };
 
-  const onDownloadJson = e => {
+  const onDownloadJson = (e) => {
     e.preventDefault();
     if (data != null) {
       downloadJSON(data);
     }
   };
 
-  const onShareTwitter = e => {
+  const onShareTwitter = (e) => {
     e.preventDefault();
     uploadToTwitter(canvasRef.current);
   };
@@ -140,7 +146,7 @@ const App = () => {
         <input
           ref={inputRef}
           placeholder="Your GitHub Username"
-          onChange={e => setUsername(e.target.value)}
+          onChange={(e) => setUsername(e.target.value)}
           value={username}
           id="username"
           autoFocus
@@ -166,12 +172,9 @@ const App = () => {
   const _renderDownloadAsJSON = () => {
     if (data === null) return;
     return (
-      <a
-        href="#" 
-        onClick={onDownloadJson}
-      >
+      <a href="#" onClick={onDownloadJson}>
         <span role="img" aria-label="Bar Chart">
-        📊
+          📊
         </span>{" "}
         Download data as JSON for your own visualizations
       </a>
@@ -189,7 +192,7 @@ const App = () => {
         {_renderForm()}
         <ThemeSelector
           currentTheme={theme}
-          onChangeTheme={themeName => setTheme(themeName)}
+          onChangeTheme={(themeName) => setTheme(themeName)}
         />
         {_renderGithubButton()}
         <footer>
@@ -204,6 +207,12 @@ const App = () => {
             .
           </p>
           {_renderDownloadAsJSON()}
+          <a
+            href="https://vercel.com/?utm_source=[team-name]&utm_campaign=oss"
+            target="_blank"
+          >
+            <img src="/powered-by-vercel.svg" alt="Powered by Vercel" />
+          </a>
         </footer>
       </header>
       <section className="App-content">

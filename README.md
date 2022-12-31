@@ -9,6 +9,7 @@ The drawing mechanism lives in [the sallar/github-contributions-canvas repositor
 ## Install
 
 Install the packages using [NPM](https://nodejs.org/en/):
+
 ```
 $ npm install
 ```
@@ -16,6 +17,7 @@ $ npm install
 ## How to run
 
 Running locally:
+
 ```
 $ npm run dev
 ```
@@ -45,3 +47,5 @@ Every release, along with the migration instructions, is documented on the GitHu
 ## License
 
 [MIT license](https://opensource.org/licenses/MIT)
+
+[![Powered by Vercel](/public/powered-by-vercel.svg)](https://vercel.com/?utm_source=[team-name]&utm_campaign=oss)
