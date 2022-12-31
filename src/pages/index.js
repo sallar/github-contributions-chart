@@ -172,6 +172,8 @@ const App = () => {
           onChange={(e) => setUsername(e.target.value)}
           value={username}
           id="username"
+          autoCorrect="off"
+          autoCapitalize="none"
           autoFocus
         />
         <button type="submit" disabled={username.length <= 0 || loading}>
