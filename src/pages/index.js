@@ -73,7 +73,7 @@ const App = () => {
       data,
       username: username,
       themeName: theme,
-      footerText: "Made by @sallar & friends - github-contributions.now.sh"
+      footerText: "Made by @sallar & friends - github-contributions.vercel.app"
     });
   };
 
