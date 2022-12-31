@@ -51,6 +51,15 @@
   padding: 2rem 1rem 0;
 }
 
+.App-powered {
+  margin-top: 1rem;
+}
+
+.App-powered img {
+  width: auto;
+  height: 3rem;
+}
+
 h1,
 h4 {
   font-weight: 300;
@@ -105,7 +114,7 @@ button {
 
 .App-content button {
   height: 3rem;
-  padding: 0 1.5rem;
+  padding: 0 2rem;
 }
 
 button:disabled {
@@ -133,7 +142,6 @@ form button {
 .App-download-button {
   min-height: 2rem;
   line-height: 2rem;
-  padding: 0 1rem;
   margin: 0 1rem;
   margin-right: 0.5rem;
 }
@@ -141,7 +149,6 @@ form button {
 .App-twitter-button {
   min-height: 2rem;
   line-height: 2rem;
-  padding: 0 1rem;
   margin: 0 1rem;
   background-color: rgb(0, 169, 237);
   border: 0;

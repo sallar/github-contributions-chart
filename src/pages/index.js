@@ -4,13 +4,15 @@ import {
   uploadToTwitter,
   fetchData,
   downloadJSON,
-  cleanUsername
+  cleanUsername,
+  share
 } from "../utils/export";
 import ThemeSelector from "../components/themes";
 
 const App = () => {
   const inputRef = useRef();
   const canvasRef = useRef();
+  const contentRef = useRef();
   const [loading, setLoading] = useState(false);
   const [username, setUsername] = useState("");
   const [theme, setTheme] = useState("standard");
@@ -40,7 +42,6 @@ const App = () => {
           setError("Could not find your profile");
         } else {
           setData(data);
-          inputRef.current.blur();
         }
       })
       .catch((err) => {
@@ -67,6 +68,11 @@ const App = () => {
     uploadToTwitter(canvasRef.current);
   };
 
+  const onShare = (e) => {
+    e.preventDefault();
+    share(canvasRef.current);
+  };
+
   const draw = async () => {
     if (!canvasRef.current || !data) {
       setError("Something went wrong... Check back later.");
@@ -80,6 +86,9 @@ const App = () => {
       username: username,
       themeName: theme,
       footerText: "Made by @sallar & friends - github-contributions.vercel.app"
+    });
+    contentRef.current.scrollIntoView({
+      behavior: "smooth"
     });
   };
 
@@ -117,25 +126,39 @@ const App = () => {
         style={{ display: data !== null && !loading ? "block" : "none" }}
       >
         <p>Your chart is ready!</p>
-        <div className="App-buttons">
-          <button
-            className="App-download-button"
-            onClick={onDownload}
-            type="button"
-          >
-            Download the Image
-          </button>
-          or
-          <button
-            className="App-twitter-button"
-            onClick={onShareTwitter}
-            type="button"
-          >
-            Share on Twitter
-          </button>
-        </div>
 
-        <canvas ref={canvasRef} />
+        {data !== null && (
+          <>
+            <div className="App-buttons">
+              <button
+                className="App-download-button"
+                onClick={onDownload}
+                type="button"
+              >
+                Download the Image
+              </button>
+              {global.navigator && "share" in navigator ? (
+                <button
+                  className="App-download-button"
+                  onClick={onShare}
+                  type="button"
+                >
+                  Share
+                </button>
+              ) : (
+                <button
+                  className="App-twitter-button"
+                  onClick={onShareTwitter}
+                  type="button"
+                >
+                  Share on Twitter
+                </button>
+              )}
+            </div>
+
+            <canvas ref={canvasRef} />
+          </>
+        )}
       </div>
     );
   };
@@ -151,11 +174,11 @@ const App = () => {
           id="username"
           autoFocus
         />
-        <button type="submit" disabled={username.length <= 0}>
+        <button type="submit" disabled={username.length <= 0 || loading}>
           <span role="img" aria-label="Stars">
             ✨
           </span>{" "}
-          Generate!
+          {loading ? "Generating..." : "Generate!"}
         </button>
       </form>
     );
@@ -207,15 +230,17 @@ const App = () => {
             .
           </p>
           {_renderDownloadAsJSON()}
-          <a
-            href="https://vercel.com/?utm_source=github-contributions-chart&utm_campaign=oss"
-            target="_blank"
-          >
-            <img src="/powered-by-vercel.svg" alt="Powered by Vercel" />
-          </a>
+          <div className="App-powered">
+            <a
+              href="https://vercel.com/?utm_source=github-contributions-chart&utm_campaign=oss"
+              target="_blank"
+            >
+              <img src="/powered-by-vercel.svg" alt="Powered by Vercel" />
+            </a>
+          </div>
         </footer>
       </header>
-      <section className="App-content">
+      <section className="App-content" ref={contentRef}>
         {loading && _renderLoading()}
         {error !== null && _renderError()}
         {_renderGraphs()}

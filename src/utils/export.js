@@ -1,7 +1,7 @@
 const API_URL = "/api/v1/";
 
 export function fetchData(username) {
-  return fetch(API_URL + username).then(res => res.json());
+  return fetch(API_URL + username).then((res) => res.json());
 }
 
 export function download(canvas) {
@@ -21,7 +21,8 @@ export function download(canvas) {
 export function downloadJSON(data) {
   try {
     const dataString = JSON.stringify(data);
-    const dataUrl = "data:text/json;charset=utf-8," + encodeURIComponent(dataString);
+    const dataUrl =
+      "data:text/json;charset=utf-8," + encodeURIComponent(dataString);
     const a = document.createElement("a");
     document.body.insertAdjacentElement("beforeend", a);
     a.download = "contributions.json";
@@ -36,14 +37,14 @@ export function downloadJSON(data) {
 export async function uploadToTwitter(canvas) {
   try {
     const data = await fetch(API_URL + "tweetMedia", {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json"
       },
       body: JSON.stringify({
         image: canvas.toDataURL()
       })
-    }).then(res => res.json());
+    }).then((res) => res.json());
     const url = window.encodeURIComponent(data.mediaUrl);
     const text = window.encodeURIComponent(
       "Check out my #GitHubContributions history over time. A free tool by @sallar and friends. https://github-contributions.vercel.app"
@@ -54,6 +55,29 @@ export async function uploadToTwitter(canvas) {
   }
 }
 
-export function cleanUsername(username){
-  return username.replace(/^(http|https):\/\/(?!www\.)github\.com\//, '');
+export async function share(canvas) {
+  try {
+    canvas.toBlob(async (blob) => {
+      navigator
+        .share({
+          title: "GitHub Contributions",
+          text: "Check out my GitHub Contributions history over time. A free tool by @sallar and friends. ",
+          url: "https://github-contributions.vercel.app",
+          files: [
+            new File([blob], "contributions.png", {
+              type: blob.type
+            })
+          ]
+        })
+        .catch(() => {
+          // do nothing
+        });
+    }, "image/png");
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+export function cleanUsername(username) {
+  return username.replace(/^(http|https):\/\/(?!www\.)github\.com\//, "");
 }
