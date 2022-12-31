@@ -48,4 +48,4 @@ Every release, along with the migration instructions, is documented on the GitHu
 
 [MIT license](https://opensource.org/licenses/MIT)
 
-[![Powered by Vercel](/public/powered-by-vercel.svg)](https://vercel.com/?utm_source=[team-name]&utm_campaign=oss)
+[![Powered by Vercel](/public/powered-by-vercel.svg)](https://vercel.com/?utm_source=github-contributions-chart&utm_campaign=oss)

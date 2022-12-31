@@ -208,7 +208,7 @@ const App = () => {
           </p>
           {_renderDownloadAsJSON()}
           <a
-            href="https://vercel.com/?utm_source=[team-name]&utm_campaign=oss"
+            href="https://vercel.com/?utm_source=github-contributions-chart&utm_campaign=oss"
             target="_blank"
           >
             <img src="/powered-by-vercel.svg" alt="Powered by Vercel" />
