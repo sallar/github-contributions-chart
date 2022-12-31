@@ -3,7 +3,7 @@
   "description": "Generate an image of all your GitHub contributions",
   "version": "2.0.0",
   "engines": {
-    "node": ">=10"
+    "node": ">=16"
   },
   "dependencies": {
     "cheerio": "^1.0.0-rc.3",
