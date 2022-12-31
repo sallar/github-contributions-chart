@@ -1,3 +1,4 @@
+import { Analytics } from "@vercel/analytics/react";
 import "normalize.css/normalize.css";
 import "../styles/index.css";
 import "../styles/App.css";
@@ -14,6 +15,7 @@ const App = ({ Component, pageProps }) => (
       />
     </Head>
     <Component {...pageProps} />
+    <Analytics />
   </>
 );
 
