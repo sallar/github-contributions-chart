@@ -61,7 +61,7 @@ export async function share(canvas) {
       navigator
         .share({
           title: "GitHub Contributions",
-          text: "Check out my GitHub Contributions history over time. A free tool by @sallar and friends. https://github-contributions.vercel.app",
+          text: "Check out my #GitHubContributions history over time. A free tool by @sallar and friends. https://github-contributions.vercel.app",
           files: [
             new File([blob], "contributions.png", {
               type: blob.type
