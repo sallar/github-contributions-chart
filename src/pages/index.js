@@ -8,6 +8,7 @@ import {
   share
 } from "../utils/export";
 import ThemeSelector from "../components/themes";
+import { toast } from "react-hot-toast";
 
 const App = () => {
   const inputRef = useRef();
@@ -54,6 +55,21 @@ const App = () => {
   const onDownload = (e) => {
     e.preventDefault();
     download(canvasRef.current);
+  };
+
+  const onCopy = (e) => {
+    e.preventDefault();
+    if ("ClipboardItem" in window) {
+      canvasRef.current.toBlob((blob) => {
+        const item = new ClipboardItem({ "image/png": blob });
+        navigator.clipboard.write([item]);
+      });
+      toast("🎉 Copied image!");
+      console.log("copied successfully");
+    } else {
+      toast("Sorry, copying image is not supported on this browser");
+      console.error("failed to copy");
+    }
   };
 
   const onDownloadJson = (e) => {
@@ -130,6 +146,13 @@ const App = () => {
         {data !== null && (
           <>
             <div className="App-buttons">
+              <button
+                className="App-download-button"
+                onClick={onCopy}
+                type="button"
+              >
+                Copy the Image
+              </button>
               <button
                 className="App-download-button"
                 onClick={onDownload}
