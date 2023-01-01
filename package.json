@@ -6,6 +6,7 @@
     "node": ">=16"
   },
   "dependencies": {
+    "@tabler/icons": "^1.119.0",
     "@vercel/analytics": "^0.1.6",
     "cheerio": "^1.0.0-rc.3",
     "data-uri-to-buffer": "^3.0.0",
