@@ -1,3 +1,35 @@
+:root {
+  --bg: #fff;
+  --header-bg: #f4f5f6;
+  --button-bg: #9b4dca;
+  --button-disabled: #cfd0d4;
+  --button-disabled-border: #cfd0d4;
+  --button-text: #fff;
+  --twitter-button-bg: rgb(0, 169, 237);
+  --text: #606c76;
+  --loading-text: #606c76;
+  --input-border: #d1d1d1;
+  --input-text: #000;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #111517;
+    --header-bg: rgb(22, 28, 30);
+    --text: rgb(164, 157, 145);
+    --input-border: rgb(55, 68, 75);
+    --button-disabled: rgb(42, 52, 57);
+    --button-disabled-border: var(--input-border);
+    --loading-text: #rgb(164, 157, 145);
+    --input-text: #fff;
+  }
+}
+
+html {
+  color: var(--text);
+  background-color: var(--bg);
+}
+
 .App {
   display: grid;
   grid-template-columns: 40rem 1fr;
@@ -5,9 +37,9 @@
 }
 
 .App-header {
-  background-color: #f4f5f6;
+  background-color: var(--header-bg);
   min-height: 40rem;
-  color: #606c76;
+  color: var(--text);
   padding: 1rem;
   overflow-y: scroll;
 }
@@ -32,7 +64,7 @@
 }
 
 .App-loading {
-  color: #606c76;
+  color: var(--loading-text);
 }
 
 .App-result {
@@ -90,12 +122,14 @@ form {
 }
 
 input {
-  border: 0.1rem solid #d1d1d1;
+  border: 0.1rem solid var(--input-border);
   border-right: 0;
   border-radius: 0.4rem;
   padding: 0.6rem 1rem;
   height: 4rem;
   outline: none;
+  color: var(--input-text);
+  background-color: var(--bg);
 }
 
 button {
@@ -103,10 +137,10 @@ button {
   line-height: 4rem;
   padding: 0 1rem;
   white-space: nowrap;
-  background-color: #9b4dca;
-  border: 0.1rem solid #9b4dca;
+  background-color: var(--button-bg);
+  border: 0.1rem solid var(--button-bg);
   border-radius: 0.4rem;
-  color: #fff;
+  color: var(--button-text);
   font-size: 0.8em;
   outline: none;
   cursor: pointer;
@@ -118,8 +152,8 @@ button {
 }
 
 button:disabled {
-  background-color: #cfd0d4;
-  border: 0.1rem solid #cfd0d4;
+  background-color: var(--button-disabled);
+  border: 0.1rem solid var(--button-disabled-border);
   cursor: not-allowed;
 }
 
@@ -150,7 +184,7 @@ form button {
   min-height: 2rem;
   line-height: 2rem;
   margin: 0 1rem;
-  background-color: rgb(0, 169, 237);
+  background-color: var(--twitter-button-bg);
   border: 0;
 }
 
@@ -161,7 +195,7 @@ form button {
 }
 
 .App-themes {
-  border: 1px solid #cfd0d4;
+  border: 1px solid var(--button-disabled-border);
   border-radius: 0.4rem;
   margin-bottom: 1rem;
   padding: 1rem 1rem 2rem;
@@ -172,7 +206,7 @@ form button {
 }
 
 .App-themes h6 span {
-  background-color: #f4f5f6;
+  background-color: var(--header-bg);
   padding: 0 1rem;
 }
 
@@ -207,7 +241,7 @@ footer {
 }
 
 footer a {
-  color: #606c76;
+  color: var(--text);
   text-decoration: none;
 }
 

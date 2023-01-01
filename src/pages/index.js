@@ -210,7 +210,7 @@ const App = () => {
     <div className="App">
       <header className="App-header">
         <div className="App-logo">
-          <img src="/tentocats.jpg" width={200} alt="Tentocats" />
+          <img src="/topguntocat.png" width={200} alt="Topguntocat" />
           <h1>GitHub Contributions Chart Generator</h1>
           <h4>All your contributions in one image!</h4>
         </div>
@@ -222,12 +222,9 @@ const App = () => {
         {_renderGithubButton()}
         <footer>
           <p>
-            Not affiliated with GitHub Inc. Octocat illustration made by{" "}
-            <a
-              href="https://octodex.github.com/tentocat/"
-              rel="noopener nofollow"
-            >
-              GitHub design team
+            Not affiliated with GitHub Inc. Octocat illustration from{" "}
+            <a href="https://octodex.github.com/topguntocat/" target="_blank">
+              GitHub Octodex
             </a>
             .
           </p>
