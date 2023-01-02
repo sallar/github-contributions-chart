@@ -1,5 +1,4 @@
 import cheerio from "cheerio";
-import fetch from "node-fetch";
 import _ from "lodash";
 
 const COLOR_MAP = {
