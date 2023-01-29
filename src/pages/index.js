@@ -68,10 +68,10 @@ const App = () => {
     if ("ClipboardItem" in window) {
       canvasRef.current.toBlob((blob) => {
         const item = new ClipboardItem({ "image/png": blob });
-        navigator.clipboard.write([item]);
+        navigator.clipboard.write([item])
+          .then(() => toast("🎉 Copied image!"))
+          .catch(err => console.error(err));
       });
-      toast("🎉 Copied image!");
-      console.log("copied successfully");
     } else {
       toast("Sorry, copying image is not supported on this browser");
       console.error("failed to copy");
