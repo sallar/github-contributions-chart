@@ -70,7 +70,10 @@ const App = () => {
         const item = new ClipboardItem({ "image/png": blob });
         navigator.clipboard.write([item])
           .then(() => toast("🎉 Copied image!"))
-          .catch(err => console.error(err));
+          .catch(err => {
+            toast("Sorry, copying image is not supported on this browser");
+            console.error("failed to copy");
+          });
       });
     } else {
       toast("Sorry, copying image is not supported on this browser");
