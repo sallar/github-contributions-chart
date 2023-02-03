@@ -1,5 +1,4 @@
 import cheerio from "cheerio";
-import fetch from "node-fetch";
 import _ from "lodash";
 
 const COLOR_MAP = {
@@ -55,7 +54,7 @@ async function fetchDataForYear(url, year, format) {
         const color = COLOR_MAP[$day.attr("data-level")];
         const value = {
           date: $day.attr("data-date"),
-          count: parseInt($day.attr("data-count"), 10),
+          count: parseInt($day.text().split(" ")[0], 10) || 0,
           color,
           intensity: $day.attr("data-level") || 0
         };
