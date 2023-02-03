@@ -1,9 +1,4 @@
-import {
-  IconCopy,
-  IconDownload,
-  IconShare,
-  IconBrandTwitter
-} from "@tabler/icons";
+import { TbBrandTwitter, TbShare, TbDownload, TbCopy } from "react-icons/tb";
 import { toast } from "react-hot-toast";
 import React, { useRef, useState, useEffect } from "react";
 import {
@@ -157,7 +152,7 @@ const App = () => {
                 onClick={onCopy}
                 type="button"
               >
-                <IconCopy size={18} />
+                <TbCopy size={18} />
                 Copy the Image
               </button>
               <button
@@ -165,7 +160,7 @@ const App = () => {
                 onClick={onDownload}
                 type="button"
               >
-                <IconDownload size={18} />
+                <TbDownload size={18} />
                 Download the Image
               </button>
               {global.navigator && "share" in navigator ? (
@@ -174,7 +169,7 @@ const App = () => {
                   onClick={onShare}
                   type="button"
                 >
-                  <IconShare size={18} />
+                  <TbShare size={18} />
                   Share
                 </button>
               ) : (
@@ -183,7 +178,7 @@ const App = () => {
                   onClick={onShareTwitter}
                   type="button"
                 >
-                  <IconBrandTwitter size={18} />
+                  <TbBrandTwitter size={18} />
                   Share on Twitter
                 </button>
               )}
