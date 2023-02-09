@@ -177,6 +177,10 @@ form button {
   line-height: 2rem;
   margin: 0 1rem;
   margin-right: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 7px;
 }
 
 .App-themes label {

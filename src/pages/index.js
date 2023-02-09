@@ -1,10 +1,12 @@
+import { TbBrandTwitter, TbShare, TbDownload, TbCopy } from "react-icons/tb";
 import React, { useRef, useState, useEffect } from "react";
 import {
   download,
   fetchData,
   downloadJSON,
   cleanUsername,
-  share
+  share,
+  copyToClipboard
 } from "../utils/export";
 import ThemeSelector from "../components/themes";
 
@@ -53,6 +55,11 @@ const App = () => {
   const onDownload = (e) => {
     e.preventDefault();
     download(canvasRef.current);
+  };
+
+  const onCopy = (e) => {
+    e.preventDefault();
+    copyToClipboard(canvasRef.current);
   };
 
   const onDownloadJson = (e) => {
@@ -126,10 +133,19 @@ const App = () => {
             <div className="App-buttons">
               <button
                 className="App-download-button"
+                onClick={onCopy}
+                type="button"
+              >
+                <TbCopy size={18} />
+                Copy
+              </button>
+              <button
+                className="App-download-button"
                 onClick={onDownload}
                 type="button"
               >
-                Download the Image
+                <TbDownload size={18} />
+                Download
               </button>
               {global.navigator && "share" in navigator && (
                 <button
@@ -137,6 +153,7 @@ const App = () => {
                   onClick={onShare}
                   type="button"
                 >
+                  <TbShare size={18} />
                   Share
                 </button>
               )}
