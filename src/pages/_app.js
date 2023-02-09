@@ -1,3 +1,4 @@
+import { Toaster } from "react-hot-toast";
 import { Analytics } from "@vercel/analytics/react";
 import "normalize.css/normalize.css";
 import "../styles/index.css";
@@ -15,6 +16,7 @@ const App = ({ Component, pageProps }) => (
       />
     </Head>
     <Component {...pageProps} />
+    <Toaster position="bottom-right" />
     <Analytics />
   </>
 );

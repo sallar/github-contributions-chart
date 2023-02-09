@@ -1,3 +1,5 @@
+import { TbBrandTwitter, TbShare, TbDownload, TbCopy } from "react-icons/tb";
+import { toast } from "react-hot-toast";
 import React, { useRef, useState, useEffect } from "react";
 import {
   download,
@@ -53,6 +55,24 @@ const App = () => {
   const onDownload = (e) => {
     e.preventDefault();
     download(canvasRef.current);
+  };
+
+  const onCopy = (e) => {
+    e.preventDefault();
+    if ("ClipboardItem" in window) {
+      canvasRef.current.toBlob((blob) => {
+        const item = new ClipboardItem({ "image/png": blob });
+        navigator.clipboard.write([item])
+          .then(() => toast("🎉 Copied image!"))
+          .catch(err => {
+            toast("Sorry, copying image is not supported on this browser");
+            console.error("failed to copy");
+          });
+      });
+    } else {
+      toast("Sorry, copying image is not supported on this browser");
+      console.error("failed to copy");
+    }
   };
 
   const onDownloadJson = (e) => {
@@ -126,9 +146,18 @@ const App = () => {
             <div className="App-buttons">
               <button
                 className="App-download-button"
+                onClick={onCopy}
+                type="button"
+              >
+                <TbCopy size={18} />
+                Copy the Image
+              </button>
+              <button
+                className="App-download-button"
                 onClick={onDownload}
                 type="button"
               >
+                <TbDownload size={18} />
                 Download the Image
               </button>
               {global.navigator && "share" in navigator && (
@@ -137,6 +166,7 @@ const App = () => {
                   onClick={onShare}
                   type="button"
                 >
+                  <TbShare size={18} />
                   Share
                 </button>
               )}
