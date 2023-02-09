@@ -5,7 +5,6 @@
   --button-disabled: #cfd0d4;
   --button-disabled-border: #cfd0d4;
   --button-text: #fff;
-  --twitter-button-bg: rgb(0, 169, 237);
   --text: #606c76;
   --loading-text: #606c76;
   --input-border: #d1d1d1;
@@ -178,14 +177,6 @@ form button {
   line-height: 2rem;
   margin: 0 1rem;
   margin-right: 0.5rem;
-}
-
-.App-twitter-button {
-  min-height: 2rem;
-  line-height: 2rem;
-  margin: 0 1rem;
-  background-color: var(--twitter-button-bg);
-  border: 0;
 }
 
 .App-themes label {

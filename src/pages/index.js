@@ -1,7 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
 import {
   download,
-  uploadToTwitter,
   fetchData,
   downloadJSON,
   cleanUsername,
@@ -61,11 +60,6 @@ const App = () => {
     if (data != null) {
       downloadJSON(data);
     }
-  };
-
-  const onShareTwitter = (e) => {
-    e.preventDefault();
-    uploadToTwitter(canvasRef.current);
   };
 
   const onShare = (e) => {
@@ -137,21 +131,13 @@ const App = () => {
               >
                 Download the Image
               </button>
-              {global.navigator && "share" in navigator ? (
+              {global.navigator && "share" in navigator && (
                 <button
                   className="App-download-button"
                   onClick={onShare}
                   type="button"
                 >
                   Share
-                </button>
-              ) : (
-                <button
-                  className="App-twitter-button"
-                  onClick={onShareTwitter}
-                  type="button"
-                >
-                  Share on Twitter
                 </button>
               )}
             </div>
