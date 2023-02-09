@@ -3,7 +3,6 @@ import { toast } from "react-hot-toast";
 import React, { useRef, useState, useEffect } from "react";
 import {
   download,
-  uploadToTwitter,
   fetchData,
   downloadJSON,
   cleanUsername,
@@ -81,11 +80,6 @@ const App = () => {
     if (data != null) {
       downloadJSON(data);
     }
-  };
-
-  const onShareTwitter = (e) => {
-    e.preventDefault();
-    uploadToTwitter(canvasRef.current);
   };
 
   const onShare = (e) => {
@@ -166,7 +160,7 @@ const App = () => {
                 <TbDownload size={18} />
                 Download the Image
               </button>
-              {global.navigator && "share" in navigator ? (
+              {global.navigator && "share" in navigator && (
                 <button
                   className="App-download-button"
                   onClick={onShare}
@@ -174,15 +168,6 @@ const App = () => {
                 >
                   <TbShare size={18} />
                   Share
-                </button>
-              ) : (
-                <button
-                  className="App-twitter-button"
-                  onClick={onShareTwitter}
-                  type="button"
-                >
-                  <TbBrandTwitter size={18} />
-                  Share on Twitter
                 </button>
               )}
             </div>
