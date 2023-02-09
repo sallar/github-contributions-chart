@@ -1,3 +1,5 @@
+import { toast } from "react-hot-toast";
+
 const API_URL = "/api/v1/";
 
 export function fetchData(username) {
@@ -53,6 +55,28 @@ export async function share(canvas) {
     }, "image/png");
   } catch (err) {
     console.error(err);
+  }
+}
+
+export async function copyToClipboard(canvas) {
+  if ("ClipboardItem" in window) {
+    // https://bugs.webkit.org/show_bug.cgi?id=222262
+    // https://web.dev/async-clipboard/
+    const item = new ClipboardItem({
+      "image/png": new Promise((resolve) => {
+        canvas.toBlob(resolve, "image/png");
+      })
+    });
+    navigator.clipboard
+      .write([item])
+      .then(() => toast("🎉 Copied image!"))
+      .catch((err) => {
+        toast("Sorry, copying image is not supported on this browser");
+        console.error("failed to copy");
+      });
+  } else {
+    toast("Sorry, copying image is not supported on this browser");
+    console.error("failed to copy");
   }
 }
 

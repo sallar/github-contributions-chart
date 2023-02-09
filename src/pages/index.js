@@ -1,12 +1,12 @@
 import { TbBrandTwitter, TbShare, TbDownload, TbCopy } from "react-icons/tb";
-import { toast } from "react-hot-toast";
 import React, { useRef, useState, useEffect } from "react";
 import {
   download,
   fetchData,
   downloadJSON,
   cleanUsername,
-  share
+  share,
+  copyToClipboard
 } from "../utils/export";
 import ThemeSelector from "../components/themes";
 
@@ -59,20 +59,7 @@ const App = () => {
 
   const onCopy = (e) => {
     e.preventDefault();
-    if ("ClipboardItem" in window) {
-      canvasRef.current.toBlob((blob) => {
-        const item = new ClipboardItem({ "image/png": blob });
-        navigator.clipboard.write([item])
-          .then(() => toast("🎉 Copied image!"))
-          .catch(err => {
-            toast("Sorry, copying image is not supported on this browser");
-            console.error("failed to copy");
-          });
-      });
-    } else {
-      toast("Sorry, copying image is not supported on this browser");
-      console.error("failed to copy");
-    }
+    copyToClipboard(canvasRef.current);
   };
 
   const onDownloadJson = (e) => {
@@ -150,7 +137,7 @@ const App = () => {
                 type="button"
               >
                 <TbCopy size={18} />
-                Copy the Image
+                Copy
               </button>
               <button
                 className="App-download-button"
@@ -158,7 +145,7 @@ const App = () => {
                 type="button"
               >
                 <TbDownload size={18} />
-                Download the Image
+                Download
               </button>
               {global.navigator && "share" in navigator && (
                 <button
