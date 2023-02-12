@@ -6,6 +6,12 @@ The API for this project lives in the `src/pages/api` directory since GitHub doe
 
 The drawing mechanism lives in [the sallar/github-contributions-canvas repository](https://github.com/sallar/github-contributions-canvas).
 
+## Requirements
+
+- A valid github account.
+- Open activity in setting (`Settings` > `Public profile` > `Contributions & Activity`).
+  - [ ] Make profile private and hide activity
+
 ## Install
 
 Install the packages using [NPM](https://nodejs.org/en/):
