@@ -5,7 +5,7 @@ import App from './index'
 export default function PrefilledUsername() {
 
   const route = useRouter().asPath
-  const [usernameProps, setUsernameProps] = useState("");
+  const [username, setUsername] = useState("");
   
   useEffect(() => {
     if (route.split("/")[1] !== '[username]') { 
