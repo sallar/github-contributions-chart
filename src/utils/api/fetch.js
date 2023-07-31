@@ -26,7 +26,7 @@ async function fetchYears(username) {
 async function fetchDataForYear(url, year, format) {
   const data = await fetch(`https://github.com${url}`);
   const $ = cheerio.load(await data.text());
-  const $days = $("svg.js-calendar-graph-svg rect.ContributionCalendar-day");
+  const $days = $('table.ContributionCalendar-grid td.ContributionCalendar-day');
   const contribText = $(".js-yearly-contributions h2")
     .text()
     .trim()
