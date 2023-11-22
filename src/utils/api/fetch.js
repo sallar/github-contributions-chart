@@ -26,7 +26,9 @@ async function fetchYears(username) {
 async function fetchDataForYear(url, year, format) {
   const data = await fetch(`https://github.com${url}`);
   const $ = cheerio.load(await data.text());
-  const $days = $('table.ContributionCalendar-grid td.ContributionCalendar-day');
+  const $days = $(
+    "table.ContributionCalendar-grid td.ContributionCalendar-day"
+  );
   const contribText = $(".js-yearly-contributions h2")
     .text()
     .trim()
@@ -45,7 +47,7 @@ async function fetchDataForYear(url, year, format) {
       end: $($days.get($days.length - 1)).attr("data-date")
     },
     contributions: (() => {
-      const parseDay = (day) => {
+      const parseDay = (day, index) => {
         const $day = $(day);
         const date = $day
           .attr("data-date")
@@ -54,7 +56,7 @@ async function fetchDataForYear(url, year, format) {
         const color = COLOR_MAP[$day.attr("data-level")];
         const value = {
           date: $day.attr("data-date"),
-          count: parseInt($day.text().split(" ")[0], 10) || 0,
+          count: index === 0 ? contribCount : 0,
           color,
           intensity: $day.attr("data-level") || 0
         };
@@ -62,11 +64,11 @@ async function fetchDataForYear(url, year, format) {
       };
 
       if (format !== "nested") {
-        return $days.get().map((day) => parseDay(day).value);
+        return $days.get().map((day, index) => parseDay(day, index).value);
       }
 
-      return $days.get().reduce((o, day) => {
-        const { date, value } = parseDay(day);
+      return $days.get().reduce((o, day, index) => {
+        const { date, value } = parseDay(day, index);
         const [y, m, d] = date;
         if (!o[y]) o[y] = {};
         if (!o[y][m]) o[y][m] = {};
