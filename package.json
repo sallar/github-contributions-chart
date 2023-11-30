@@ -10,7 +10,7 @@
     "cheerio": "^1.0.0-rc.3",
     "github-contributions-canvas": "^0.7.0",
     "lodash": "^4.17.19",
-    "next": "^13.1.1",
+    "next": "^13.5.0",
     "normalize.css": "^8.0.1",
     "prop-types": "^15.7.2",
     "react": "^18.2.0",
