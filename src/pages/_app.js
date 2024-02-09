@@ -3,9 +3,7 @@ import { Analytics } from "@vercel/analytics/react";
 import "normalize.css/normalize.css";
 import "../styles/index.css";
 import "../styles/App.css";
-
 import Head from "next/head";
-
 const App = ({ Component, pageProps }) => (
   <>
     <Head>
@@ -20,5 +18,4 @@ const App = ({ Component, pageProps }) => (
     <Analytics />
   </>
 );
-
 export default App;
