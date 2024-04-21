@@ -10,25 +10,40 @@ const COLOR_MAP = {
 };
 
 async function fetchYears(username) {
-  const data = await fetch(`https://github.com/${username}`);
-  const $ = cheerio.load(await data.text());
+  const data = await fetch(`https://github.com/${username}?tab=contributions`, {
+    headers: {
+      "x-requested-with": "XMLHttpRequest"
+    }
+  });
+  const body = await data.text();
+  const $ = cheerio.load(body);
   return $(".js-year-link")
     .get()
     .map((a) => {
       const $a = $(a);
+      const href = $a.attr("href");
+      const githubUrl = new URL(`https://github.com${href}`);
+      githubUrl.searchParams.set("tab", "contributions");
+      const formattedHref = `${githubUrl.pathname}${githubUrl.search}`;
+
       return {
-        href: $a.attr("href"),
+        href: formattedHref,
         text: $a.text().trim()
       };
     });
 }
 
 async function fetchDataForYear(url, year, format) {
-  const data = await fetch(`https://github.com${url}`);
+  const data = await fetch(`https://github.com${url}`, {
+    headers: {
+      "x-requested-with": "XMLHttpRequest"
+    }
+  });
   const $ = cheerio.load(await data.text());
   const $days = $(
     "table.ContributionCalendar-grid td.ContributionCalendar-day"
   );
+
   const contribText = $(".js-yearly-contributions h2")
     .text()
     .trim()
