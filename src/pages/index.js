@@ -9,11 +9,13 @@ import {
   copyToClipboard
 } from "../utils/export";
 import ThemeSelector from "../components/themes";
+import { useRouter } from "next/router";
 
-const App = () => {
+const App = ({ usernameProp = "" }) => {
   const inputRef = useRef();
   const canvasRef = useRef();
   const contentRef = useRef();
+  const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [username, setUsername] = useState("");
   const [theme, setTheme] = useState("standard");
@@ -27,14 +29,22 @@ const App = () => {
     draw();
   }, [data, theme]);
 
+  useEffect(() => {
+    if (usernameProp.length > 0) {
+      setUsername(cleanUsername(usernameProp));
+      fetchUserData(cleanUsername(usernameProp));
+    }
+  }, [usernameProp]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    router.push(`/${cleanUsername(username)}`);
+  };
 
-    setUsername(cleanUsername(username));
+  const fetchUserData = async (username) => {
     setLoading(true);
     setError(null);
     setData(null);
-
     fetchData(cleanUsername(username))
       .then((data) => {
         setLoading(false);
