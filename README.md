@@ -2,7 +2,7 @@
 
 Generates an image of all your **GitHub** contributions since you have signed up, so you can use it in social media.
 
-The API for this project lives in the `src/pages/api` directory since GitHub doesn't provide a way to access user statistics through it's official API.
+The API for this project lives in the `src/utils/api` directory since GitHub doesn't provide a way to access user statistics through it's official API.
 
 The drawing mechanism lives in [the sallar/github-contributions-canvas repository](https://github.com/sallar/github-contributions-canvas).
 
