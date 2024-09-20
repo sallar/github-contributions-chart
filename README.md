@@ -1,5 +1,7 @@
 # :octocat: GitHub Contribution Chart Generator [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/sallar/github-contributions-canvas/blob/master/LICENSE)
 
+
+
 Generates an image of all your **GitHub** contributions since you have signed up, so you can use it in social media.
 
 The API for this project lives in the `src/pages/api` directory since GitHub doesn't provide a way to access user statistics through it's official API.
