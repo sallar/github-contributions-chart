@@ -184,10 +184,10 @@ entities@~2.1.0:
   resolved "https://registry.npmjs.org/entities/-/entities-2.1.0.tgz"
   integrity sha512-hCx1oky9PFrJ611mf0ifBLBRW8lUUVRlFolb5gWRfIELabBlbp9xZvrqZLZAs+NxFnbfQoeGd8wDkygjg7U85w==
 
-github-contributions-canvas@^0.7.0:
-  version "0.7.0"
-  resolved "https://registry.yarnpkg.com/github-contributions-canvas/-/github-contributions-canvas-0.7.0.tgz#03d5eeb8b8942beaebaad63ac59fdee1266932a7"
-  integrity sha512-4dUBdWEq+yriCDp5XTKe2ETvTiaZbOSLYpG9r3SoKnnvLU2LrXb14Xgyg07UvrCspCGKRcp+pGwxG9zpqhGg1w==
+github-contributions-canvas@^0.8.0:
+  version "0.8.0"
+  resolved "https://registry.yarnpkg.com/github-contributions-canvas/-/github-contributions-canvas-0.8.0.tgz#629932db914fd3a28cca05260be8a8bf3497a5e3"
+  integrity sha512-qFwTRW+qnLKjKaVUk4YsVCvh6ymBab1lt4wx2Tg/d7J/eeEaMnbWAsmjFNWs4mjJ1ptD4pqlUA8fUw2s/ZBMjg==
   dependencies:
     date-fns "^2.29.3"
 

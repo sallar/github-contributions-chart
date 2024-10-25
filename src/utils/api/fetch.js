@@ -17,7 +17,7 @@ async function fetchYears(username) {
   });
   const body = await data.text();
   const $ = cheerio.load(body);
-  return $(".js-year-link")
+  return $(".js-year-link.filter-item")
     .get()
     .map((a) => {
       const $a = $(a);
