@@ -94,10 +94,32 @@ async function fetchDataForYear(url, year, format) {
   };
 }
 
+async function fetchLastWeekOfPreviousYear(username, year, format) {
+  const previousYear = year - 1;
+  const previousYearData = await fetchDataForYear(
+    `/users/${username}/contributions?from=${previousYear}-12-25&to=${previousYear}-12-31`,
+    previousYear,
+    format
+  );
+  return previousYearData.contributions.slice(-7);
+}
+
 export async function fetchDataForAllYears(username, format) {
   const years = await fetchYears(username);
   return Promise.all(
-    years.map((year) => fetchDataForYear(year.href, year.text, format))
+    years.map(async (year) => {
+      const yearData = await fetchDataForYear(year.href, year.text, format);
+      const lastWeekOfPreviousYear = await fetchLastWeekOfPreviousYear(
+        username,
+        parseInt(year.text, 10),
+        format
+      );
+      yearData.contributions = [
+        ...lastWeekOfPreviousYear,
+        ...yearData.contributions
+      ];
+      return yearData;
+    })
   ).then((resp) => {
     return {
       years: (() => {
