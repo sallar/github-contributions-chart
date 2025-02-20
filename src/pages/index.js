@@ -113,7 +113,7 @@ const App = () => {
     return (
       <div className="App-centered">
         <div className="App-loading">
-          <img src={"/loading.gif"} alt="Loading..." width={200} />
+          <img src={"/loading.gif"} alt="Loading..." width={202} height={125} />
           <p>Please wait, I’m visiting your profile...</p>
         </div>
       </div>
@@ -213,7 +213,7 @@ const App = () => {
     <div className="App">
       <header className="App-header">
         <div className="App-logo">
-          <img src="/topguntocat.png" width={200} alt="Topguntocat" />
+          <img src="/topguntocat.png" width={224} height={111} alt="Topguntocat" />
           <h1>GitHub Contributions Chart Generator</h1>
           <h4>All your contributions in one image!</h4>
         </div>
