@@ -9,8 +9,8 @@ const COLOR_MAP = {
   4: "#216e39"
 };
 
-async function fetchYears(username) {
-  const data = await fetch(`https://github.com/${username}?tab=contributions`, {
+async function fetchYears(username, organization) {
+  const data = await fetch(`https://github.com/${username}?tab=contributions&org=${organization}`, {
     headers: {
       "x-requested-with": "XMLHttpRequest"
     }
@@ -94,8 +94,8 @@ async function fetchDataForYear(url, year, format) {
   };
 }
 
-export async function fetchDataForAllYears(username, format) {
-  const years = await fetchYears(username);
+export async function fetchDataForAllYears(username, organization, format) {
+  const years = await fetchYears(username, organization);
   return Promise.all(
     years.map((year) => fetchDataForYear(year.href, year.text, format))
   ).then((resp) => {
