@@ -156,6 +156,12 @@ button:disabled {
   cursor: not-allowed;
 }
 
+button:not(:disabled):hover{
+  background-color: #7f3aa3;
+  color: white;
+  transition: all 0.3s ease;
+}
+
 form input {
   width: 30rem;
   border-radius: 0.4rem 0 0 0.4rem;
@@ -181,6 +187,13 @@ form button {
   justify-content: space-between;
   align-items: center;
   gap: 7px;
+}
+
+.App-download-button:hover {
+  background-color: #7f3aa3;
+  color: white;
+  transform: scale(1.05);
+  transition: all 0.3s ease;
 }
 
 .App-themes label {
