@@ -19,6 +19,7 @@ const App = () => {
   const [theme, setTheme] = useState("standard");
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     if (!data) {
@@ -26,6 +27,10 @@ const App = () => {
     }
     draw();
   }, [data, theme]);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -94,6 +99,10 @@ const App = () => {
   };
 
   const _renderGithubButton = () => {
+    if (!mounted) {
+      return <div className="App-github-button" style={{ height: '28px' }}></div>;
+    }
+
     return (
       <div className="App-github-button">
         <a
@@ -147,7 +156,7 @@ const App = () => {
                 <TbDownload size={18} />
                 Download
               </button>
-              {global.navigator && "share" in navigator && (
+              {mounted && typeof navigator !== 'undefined' && "share" in navigator && (
                 <button
                   className="App-download-button"
                   onClick={onShare}
@@ -226,7 +235,7 @@ const App = () => {
         <footer>
           <p>
             Not affiliated with GitHub Inc. Octocat illustration from{" "}
-            <a href="https://octodex.github.com/topguntocat/" target="_blank">
+            <a href="https://octodex.github.com/topguntocat/" target="_blank" rel="noopener noreferrer">
               GitHub Octodex
             </a>
             .
@@ -236,6 +245,7 @@ const App = () => {
             <a
               href="https://vercel.com/?utm_source=github-contributions-chart&utm_campaign=oss"
               target="_blank"
+              rel="noopener noreferrer"
             >
               <img src="/powered-by-vercel.svg" alt="Powered by Vercel" />
             </a>
