@@ -2,8 +2,23 @@ import { toast } from "react-hot-toast";
 
 const API_URL = "/api/v1/";
 
-export function fetchData(username) {
-  return fetch(API_URL + username).then((res) => res.json());
+export function fetchData(username, yearOptions = {}) {
+  const { startYear, endYear, yearRange } = yearOptions;
+  let url = API_URL + username;
+  
+  const params = new URLSearchParams();
+  if (startYear) params.append('startYear', startYear);
+  if (endYear) params.append('endYear', endYear);
+  if (yearRange) params.append('yearRange', yearRange);
+  
+  if (params.toString()) {
+    url += '?' + params.toString();
+  }
+  
+  console.log('Final URL:', url);
+  console.log('Year options received:', yearOptions);
+  
+  return fetch(url).then((res) => res.json());
 }
 
 export function download(canvas) {

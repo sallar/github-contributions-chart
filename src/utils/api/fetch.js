@@ -94,10 +94,36 @@ async function fetchDataForYear(url, year, format) {
   };
 }
 
-export async function fetchDataForAllYears(username, format) {
-  const years = await fetchYears(username);
+export async function fetchDataForAllYears(username, format, yearOptions = {}) {
+  const { startYear, endYear, yearRange } = yearOptions;
+  const allYears = await fetchYears(username);
+  
+  // Filter years based on provided options
+  let filteredYears = allYears;
+  
+  if (yearRange) {
+    // Show last N years
+    const numYears = parseInt(yearRange, 10);
+    if (numYears > 0) {
+      filteredYears = allYears.slice(-numYears);
+    }
+  } else if (startYear || endYear) {
+    // Filter by specific year range
+    filteredYears = allYears.filter(year => {
+      const yearNum = parseInt(year.text, 10);
+      if (startYear && endYear) {
+        return yearNum >= parseInt(startYear, 10) && yearNum <= parseInt(endYear, 10);
+      } else if (startYear) {
+        return yearNum >= parseInt(startYear, 10);
+      } else if (endYear) {
+        return yearNum <= parseInt(endYear, 10);
+      }
+      return true;
+    });
+  }
+  
   return Promise.all(
-    years.map((year) => fetchDataForYear(year.href, year.text, format))
+    filteredYears.map((year) => fetchDataForYear(year.href, year.text, format))
   ).then((resp) => {
     return {
       years: (() => {
