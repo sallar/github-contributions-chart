@@ -165,6 +165,58 @@ form button {
   border-radius: 0 0.4rem 0.4rem 0;
 }
 
+/* Year Range Selector Styles */
+.App-year-selector {
+  border: 1px solid var(--button-disabled-border);
+  border-radius: 0.4rem;
+  margin: 1rem 0 2rem;
+  padding: 1rem;
+  background-color: var(--bg);
+}
+
+.App-year-selector h3 {
+  margin: 0 0 1rem;
+  font-size: 1.1em;
+  color: var(--text);
+  text-align: left;
+}
+
+.year-options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.year-options label {
+  display: flex;
+  align-items: center;
+  font-size: 0.9em;
+  cursor: pointer;
+  text-align: left;
+}
+
+.year-options input[type="radio"] {
+  margin-right: 0.5rem;
+  width: auto;
+  height: auto;
+  border: none;
+}
+
+.year-options input[type="number"] {
+  border: 1px solid var(--input-border);
+  border-radius: 0.3rem;
+  padding: 0.3rem 0.5rem;
+  height: auto;
+  font-size: 0.9em;
+  background-color: var(--bg);
+  color: var(--input-text);
+}
+
+.year-options input[type="number"]:focus {
+  outline: 2px solid var(--button-bg);
+  outline-offset: 1px;
+}
+
 .App-buttons {
   display: flex;
   align-items: center;
@@ -267,6 +319,26 @@ footer a {
 
   .App-buttons button {
     padding: 0 0.5rem;
+  }
+
+  /* Mobile styles for year selector */
+  .App-year-selector {
+    margin: 1rem 0;
+    padding: 0.8rem;
+  }
+
+  .year-options {
+    gap: 1rem;
+  }
+
+  .year-options label {
+    font-size: 0.85em;
+    flex-wrap: wrap;
+  }
+
+  .year-options input[type="number"] {
+    margin: 0.2rem;
+    min-width: 60px;
   }
 }
 

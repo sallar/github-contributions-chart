@@ -19,6 +19,10 @@ const App = () => {
   const [theme, setTheme] = useState("standard");
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
+  const [yearRangeType, setYearRangeType] = useState("all"); // "all", "last", "range"
+  const [lastYears, setLastYears] = useState(6);
+  const [startYear, setStartYear] = useState("");
+  const [endYear, setEndYear] = useState("");
 
   useEffect(() => {
     if (!data) {
@@ -35,7 +39,20 @@ const App = () => {
     setError(null);
     setData(null);
 
-    fetchData(cleanUsername(username))
+    // Prepare year options based on user selection
+    let yearOptions = {};
+    if (yearRangeType === "last") {
+      yearOptions.yearRange = lastYears.toString();
+    } else if (yearRangeType === "range") {
+      if (startYear) yearOptions.startYear = startYear;
+      if (endYear) yearOptions.endYear = endYear;
+    }
+    // For "all", no year options needed
+
+    console.log('Year range type:', yearRangeType);
+    console.log('Year options:', yearOptions);
+
+    fetchData(cleanUsername(username), yearOptions)
       .then((data) => {
         setLoading(false);
 
@@ -168,24 +185,99 @@ const App = () => {
 
   const _renderForm = () => {
     return (
-      <form onSubmit={handleSubmit}>
-        <input
-          ref={inputRef}
-          placeholder="Your GitHub Username"
-          onChange={(e) => setUsername(e.target.value)}
-          value={username}
-          id="username"
-          autoCorrect="off"
-          autoCapitalize="none"
-          autoFocus
-        />
-        <button type="submit" disabled={username.length <= 0 || loading}>
-          <span role="img" aria-label="Stars">
-            ✨
-          </span>{" "}
-          {loading ? "Generating..." : "Generate!"}
-        </button>
-      </form>
+      <>
+        <form onSubmit={handleSubmit}>
+          <input
+            ref={inputRef}
+            placeholder="Your GitHub Username"
+            onChange={(e) => setUsername(e.target.value)}
+            value={username}
+            id="username"
+            autoCorrect="off"
+            autoCapitalize="none"
+            autoFocus
+          />
+          <button type="submit" disabled={username.length <= 0 || loading}>
+            <span role="img" aria-label="Stars">
+              ✨
+            </span>{" "}
+            {loading ? "Generating..." : "Generate!"}
+          </button>
+        </form>
+        {_renderYearRangeSelector()}
+      </>
+    );
+  };
+
+  const _renderYearRangeSelector = () => {
+    const currentYear = new Date().getFullYear();
+
+    return (
+      <div className="App-year-selector">
+        <h3>Year Range</h3>
+        <div className="year-options">
+          <label>
+            <input
+              type="radio"
+              name="yearRange"
+              value="all"
+              checked={yearRangeType === "all"}
+              onChange={(e) => setYearRangeType(e.target.value)}
+            />
+            All years
+          </label>
+
+          <label>
+            <input
+              type="radio"
+              name="yearRange"
+              value="last"
+              checked={yearRangeType === "last"}
+              onChange={(e) => setYearRangeType(e.target.value)}
+            />
+            Last{" "}
+            <input
+              type="number"
+              min="1"
+              max="20"
+              value={lastYears}
+              onChange={(e) => setLastYears(parseInt(e.target.value) || 1)}
+              style={{ width: "60px", marginLeft: "5px", marginRight: "5px" }}
+            />{" "}
+            years
+          </label>
+
+          <label>
+            <input
+              type="radio"
+              name="yearRange"
+              value="range"
+              checked={yearRangeType === "range"}
+              onChange={(e) => setYearRangeType(e.target.value)}
+            />
+            Custom range: from{" "}
+            <input
+              type="number"
+              min="2008"
+              max={currentYear}
+              value={startYear}
+              onChange={(e) => setStartYear(e.target.value)}
+              placeholder="2020"
+              style={{ width: "80px", margin: "0 5px" }}
+            />{" "}
+            to{" "}
+            <input
+              type="number"
+              min="2008"
+              max={currentYear}
+              value={endYear}
+              onChange={(e) => setEndYear(e.target.value)}
+              placeholder={currentYear.toString()}
+              style={{ width: "80px", margin: "0 5px" }}
+            />
+          </label>
+        </div>
+      </div>
     );
   };
 
