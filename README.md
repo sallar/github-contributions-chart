@@ -17,7 +17,7 @@ The drawing mechanism lives in [the sallar/github-contributions-canvas repositor
 Install the packages using [NPM](https://nodejs.org/en/):
 
 ```
-$ npm install
+npm install
 ```
 
 ## How to run
@@ -25,7 +25,7 @@ $ npm install
 Running locally:
 
 ```
-$ npm run dev
+npm run dev
 ```
 
 ## Deployment
