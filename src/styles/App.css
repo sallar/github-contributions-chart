@@ -285,3 +285,113 @@ footer a {
     flex-wrap: wrap;
   }
 }
+
+.StatsDashboard {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  border: 1px solid var(--input-border);
+  border-radius: 0.8rem;
+  background-color: var(--header-bg);
+  text-align: left;
+}
+
+.StatsDashboard-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0 0 1.5rem 0;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.StatsDashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+
+.StatCard {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background-color: var(--bg);
+  border-radius: 0.6rem;
+  border: 1px solid var(--input-border);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.StatCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.StatCard-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  background-color: var(--button-bg);
+  color: var(--button-text);
+  flex-shrink: 0;
+}
+
+.StatCard-icon svg {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.StatCard-content {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.StatCard-value {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--input-text);
+  line-height: 1.2;
+}
+
+.StatCard-label {
+  font-size: 0.9rem;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.StatCard-subtext {
+  font-size: 0.85rem;
+  color: var(--text);
+  opacity: 0.7;
+}
+
+@media all and (max-width: 970px) {
+  .StatsDashboard-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media all and (max-width: 500px) {
+  .StatsDashboard {
+    padding: 1rem;
+  }
+
+  .StatsDashboard-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .StatCard {
+    padding: 0.8rem;
+  }
+
+  .StatCard-value {
+    font-size: 1.2rem;
+  }
+}
