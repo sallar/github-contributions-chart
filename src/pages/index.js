@@ -9,6 +9,7 @@ import {
   copyToClipboard
 } from "../utils/export";
 import ThemeSelector from "../components/themes";
+import StatsDashboard from "../components/StatsDashboard";
 
 const App = () => {
   const inputRef = useRef();
@@ -160,6 +161,8 @@ const App = () => {
             </div>
 
             <canvas ref={canvasRef} />
+
+            <StatsDashboard data={data} />
           </>
         )}
       </div>
