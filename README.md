@@ -32,6 +32,59 @@ $ npm run dev
 
 This project is deployed on [Vercel](https://vercel.com/).
 
+## API Usage
+
+### Image API
+
+You can use the Image API to embed your GitHub contribution chart directly in your blog, website, or README files.
+
+**Basic Usage:**
+
+```
+https://your-deployment-url.vercel.app/api/image/{username}
+```
+
+**Example:**
+
+```markdown
+![cherry384719's GitHub Contributions](https://your-deployment-url.vercel.app/api/image/cherry384719)
+```
+
+**With Theme:**
+
+You can specify a theme using the `theme` query parameter:
+
+```markdown
+![cherry384719's GitHub Contributions](https://your-deployment-url.vercel.app/api/image/cherry384719?theme=halloween)
+```
+
+**Available Themes:**
+
+- `standard` (default)
+- `classic`
+- `githubDark`
+- `halloween`
+- `teal`
+- `leftPad`
+- `dracula`
+- `blue`
+- `panda`
+- `sunny`
+- `pink`
+- `YlGnBu`
+- `solarizedDark`
+- `solarizedLight`
+
+### JSON API
+
+For programmatic access to contribution data, use the JSON API:
+
+```
+https://your-deployment-url.vercel.app/api/v1/{username}
+```
+
+This returns raw contribution data in JSON format that you can use for custom visualizations.
+
 ## Adding themes
 
 Add your theme to [sallar/github-contribution-canvas](https://github.com/sallar/github-contributions-canvas) repo and also send a PR here to add the name of the theme to the list.
