@@ -1,7 +1,8 @@
-import { TbBrandTwitter, TbShare, TbDownload, TbCopy } from "react-icons/tb";
-import React, { useRef, useState, useEffect } from "react";
+import { TbBrandTwitter, TbShare, TbDownload, TbCopy, TbChevronDown } from "react-icons/tb";
+import React, { useRef, useState, useEffect, useCallback } from "react";
 import {
   download,
+  downloadSVG,
   fetchData,
   downloadJSON,
   cleanUsername,
@@ -19,6 +20,8 @@ const App = () => {
   const [theme, setTheme] = useState("standard");
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
+  const [showDownloadMenu, setShowDownloadMenu] = useState(false);
+  const downloadMenuRef = useRef();
 
   useEffect(() => {
     if (!data) {
@@ -26,6 +29,17 @@ const App = () => {
     }
     draw();
   }, [data, theme]);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handler = (e) => {
+      if (downloadMenuRef.current && !downloadMenuRef.current.contains(e.target)) {
+        setShowDownloadMenu(false);
+      }
+    };
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -60,6 +74,18 @@ const App = () => {
   const onCopy = (e) => {
     e.preventDefault();
     copyToClipboard(canvasRef.current);
+  };
+
+  const onDownloadSVG = (e) => {
+    e.preventDefault();
+    if (data != null) {
+      downloadSVG(
+        data,
+        username,
+        theme,
+        "Made by @sallar & friends - github-contributions.vercel.app"
+      );
+    }
   };
 
   const onDownloadJson = (e) => {
@@ -139,14 +165,35 @@ const App = () => {
                 <TbCopy size={18} />
                 Copy
               </button>
-              <button
-                className="App-download-button"
-                onClick={onDownload}
-                type="button"
-              >
-                <TbDownload size={18} />
-                Download
-              </button>
+              <div className="App-download-dropdown" ref={downloadMenuRef}>
+                <button
+                  className="App-download-button"
+                  onClick={() => setShowDownloadMenu((v) => !v)}
+                  type="button"
+                >
+                  <TbDownload size={18} />
+                  Download
+                  <TbChevronDown size={14} style={{ marginLeft: 2 }} />
+                </button>
+                {showDownloadMenu && (
+                  <div className="App-download-menu">
+                    <button
+                      className="App-download-menu-item"
+                      onClick={(e) => { onDownload(e); setShowDownloadMenu(false); }}
+                      type="button"
+                    >
+                      <TbDownload size={15} /> PNG
+                    </button>
+                    <button
+                      className="App-download-menu-item"
+                      onClick={(e) => { onDownloadSVG(e); setShowDownloadMenu(false); }}
+                      type="button"
+                    >
+                      <TbDownload size={15} /> SVG
+                    </button>
+                  </div>
+                )}
+              </div>
               {global.navigator && "share" in navigator && (
                 <button
                   className="App-download-button"
