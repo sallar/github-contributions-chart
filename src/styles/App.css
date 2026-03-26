@@ -183,6 +183,48 @@ form button {
   gap: 7px;
 }
 
+.App-download-dropdown {
+  position: relative;
+  display: inline-flex;
+}
+
+.App-download-menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--bg);
+  border: 1px solid var(--input-border);
+  border-radius: 0.4rem;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  display: flex;
+  flex-direction: column;
+  min-width: 110px;
+  z-index: 100;
+  overflow: hidden;
+}
+
+.App-download-menu-item {
+  height: 2.6rem;
+  line-height: 2.6rem;
+  padding: 0 1rem;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  color: var(--text);
+  font-size: 0.85em;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  transition: background 0.15s ease;
+}
+
+.App-download-menu-item:hover {
+  background-color: var(--button-bg);
+  color: var(--button-text);
+}
+
 .App-themes label {
   display: flex;
   justify-content: flex-start;
