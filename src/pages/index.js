@@ -1,5 +1,6 @@
 import { TbBrandTwitter, TbShare, TbDownload, TbCopy } from "react-icons/tb";
 import React, { useRef, useState, useEffect } from "react";
+import { useRouter } from "next/router";
 import {
   download,
   fetchData,
@@ -11,6 +12,7 @@ import {
 import ThemeSelector from "../components/themes";
 
 const App = () => {
+  const router = useRouter();
   const inputRef = useRef();
   const canvasRef = useRef();
   const contentRef = useRef();
@@ -26,6 +28,33 @@ const App = () => {
     }
     draw();
   }, [data, theme]);
+
+  useEffect(() => {
+    const queryUsername = router.query.username;
+    if (queryUsername) {
+      const cleaned = cleanUsername(queryUsername);
+      setUsername(cleaned);
+      setLoading(true);
+      setError(null);
+      setData(null);
+
+      fetchData(cleaned)
+        .then((data) => {
+          setLoading(false);
+
+          if (data.years.length === 0) {
+            setError("Could not find your profile");
+          } else {
+            setData(data);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          setLoading(false);
+          setError("I could not check your profile successfully...");
+        });
+    }
+  }, [router.query.username]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
