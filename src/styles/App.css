@@ -19,7 +19,7 @@
     --input-border: rgb(55, 68, 75);
     --button-disabled: rgb(42, 52, 57);
     --button-disabled-border: var(--input-border);
-    --loading-text: #rgb(164, 157, 145);
+    --loading-text: rgb(164, 157, 145);
     --input-text: #fff;
   }
 }
@@ -89,6 +89,58 @@ html {
 .App-powered img {
   width: auto;
   height: 3rem;
+}
+
+.App-download-split {
+  position: relative;
+  display: inline-flex;
+  margin: 0 1rem;
+}
+
+.App-download-split .App-download-button {
+  margin: 0;
+}
+
+.App-download-button--main {
+  border-radius: 6px 0 0 6px;
+  border-right: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.App-download-button--caret {
+  border-radius: 0 6px 6px 0;
+  padding: 0 8px;
+}
+
+.App-download-menu {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  background: #1e1e2e;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  overflow: hidden;
+  z-index: 100;
+  min-width: 170px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+.App-download-menu button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  margin: 0;
+  padding: 10px 14px;
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  font-size: 14px;
+  text-align: left;
+}
+
+.App-download-menu button:hover {
+  background: rgba(255, 255, 255, 0.08);
 }
 
 h1,

@@ -36,6 +36,27 @@ export function downloadJSON(data) {
   }
 }
 
+export function downloadSVG(canvas) {
+  try {
+    const width = canvas.width;
+    const height = canvas.height;
+    const dataUrl = canvas.toDataURL("image/png");
+    const svgContent = `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="${width}" height="${height}">
+  <image href="${dataUrl}" width="${width}" height="${height}" />
+</svg>`;
+    const dataUri =
+      "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svgContent);
+    const a = document.createElement("a");
+    document.body.insertAdjacentElement("beforeend", a);
+    a.download = "contributions.svg";
+    a.href = dataUri;
+    a.click();
+    document.body.removeChild(a);
+  } catch (err) {
+    console.error(err);
+  }
+}
+
 export async function share(canvas) {
   try {
     canvas.toBlob(async (blob) => {
