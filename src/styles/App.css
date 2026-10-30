@@ -18,6 +18,9 @@
     --border: #3d444d;
     --text: #f0f6fc;
     --text-muted: #9198a1;
+    /* Dark Reader samples pixels and can trip on light theme swatches unless
+       this is exactly "dark". */
+    color-scheme: dark;
   }
 
   /* The badge's navy wings and star vanish against the dark panel. */

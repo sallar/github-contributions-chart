@@ -147,8 +147,11 @@ test("page follows the system color scheme without a reload", async ({
   const html = page.locator("html");
   await page.emulateMedia({ colorScheme: "dark" });
   await expect(html).toHaveCSS("background-color", "rgb(13, 17, 23)");
+  // Dark Reader only skips sampling pixels when this is exactly "dark".
+  await expect(html).toHaveCSS("color-scheme", "dark");
   await page.emulateMedia({ colorScheme: "light" });
   await expect(html).toHaveCSS("background-color", "rgb(246, 248, 250)");
+  await expect(html).toHaveCSS("color-scheme", "light dark");
 });
 
 test("star button script swaps its link without a hydration mismatch", async ({
