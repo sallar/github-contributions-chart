@@ -5,9 +5,9 @@ html {
 body {
   margin: 0;
   padding: 0;
-  font-family: "IBM Plex Mono", monospace;
+  font-family: "IBM Plex Sans", system-ui, sans-serif;
   font-size: 1.6em;
-  line-height: 1.6;
+  line-height: 1.5;
 }
 
 * {

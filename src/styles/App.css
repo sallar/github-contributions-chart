@@ -1,26 +1,28 @@
 :root {
-  --bg: #fff;
-  --header-bg: #f4f5f6;
+  --bg: #f6f8fa;
+  --header-bg: #fff;
+  --input-bg: #fff;
+  --border: #d1d9e0;
+  --text: #1f2328;
+  --text-muted: #59636e;
   --button-bg: #9b4dca;
-  --button-disabled: #cfd0d4;
-  --button-disabled-border: #cfd0d4;
+  --button-hover: #8a3cb9;
   --button-text: #fff;
-  --text: #606c76;
-  --loading-text: #606c76;
-  --input-border: #d1d1d1;
-  --input-text: #000;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #111517;
-    --header-bg: rgb(22, 28, 30);
-    --text: rgb(164, 157, 145);
-    --input-border: rgb(55, 68, 75);
-    --button-disabled: rgb(42, 52, 57);
-    --button-disabled-border: var(--input-border);
-    --loading-text: rgb(164, 157, 145);
-    --input-text: #fff;
+    --bg: #0d1117;
+    --header-bg: #151b23;
+    --input-bg: #0d1117;
+    --border: #3d444d;
+    --text: #f0f6fc;
+    --text-muted: #9198a1;
+  }
+
+  /* The badge's navy wings and star vanish against the dark panel. */
+  .App-logo img {
+    filter: drop-shadow(0 0 0.1rem rgb(255 255 255 / 0.5));
   }
 }
 
@@ -32,22 +34,22 @@ html {
 
 .App {
   display: grid;
-  grid-template-columns: 40rem minmax(0, 1fr);
+  grid-template-columns: 44rem minmax(0, 1fr);
   height: 100vh;
 }
 
 .App-header {
+  display: flex;
+  flex-direction: column;
   background-color: var(--header-bg);
-  min-height: 40rem;
-  color: var(--text);
-  padding: 1rem;
-  overflow-y: scroll;
+  border-right: 0.1rem solid var(--border);
+  padding: 3.2rem;
+  overflow-y: auto;
 }
 
 .App-content {
-  overflow-y: scroll;
-  padding: 1rem;
-  text-align: center;
+  overflow-y: auto;
+  padding: 3.2rem;
   display: flex;
 }
 
@@ -56,15 +58,16 @@ html {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 2rem 0;
+  text-align: center;
 }
 
-.App-title {
-  font-size: 1.5em;
+.App-loading,
+.App-empty {
+  color: var(--text-muted);
 }
 
-.App-loading {
-  color: var(--loading-text);
+.App-loading img {
+  border-radius: 0.8rem;
 }
 
 .App-result {
@@ -73,46 +76,73 @@ html {
   flex: 1;
 }
 
+.App-result-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.8rem 1.6rem;
+  margin-bottom: 1.6rem;
+}
+
+.App-result-header p {
+  margin: 0;
+  font-weight: 500;
+}
+
 .App-result canvas {
+  display: block;
   width: 100%;
   height: auto;
+  border-radius: 0.8rem;
+  outline: 0.1rem solid var(--border);
 }
 
 .App-logo {
   text-align: center;
-  padding: 2rem 1rem 0;
+}
+
+.App-logo img {
+  display: block;
+  width: 16rem;
+  height: auto;
+  margin: 0 auto 2rem;
 }
 
 .App-powered {
-  margin-top: 1rem;
+  margin-top: 1.6rem;
 }
 
 .App-powered img {
+  display: block;
   width: auto;
-  height: 3rem;
+  height: 2.8rem;
 }
 
 h1,
 h4 {
-  font-weight: 300;
   margin: 0;
   padding: 0;
 }
 
 h1 {
-  font-size: 3rem;
-  line-height: 1.2;
+  font-size: 3.2rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
 }
 
 h4 {
-  margin-top: 1em;
+  margin-top: 0.8rem;
+  font-size: 1.6rem;
+  font-weight: 400;
+  color: var(--text-muted);
 }
 
 .App-form {
-  margin: 2em 0 1em;
+  margin: 2.4rem 0;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  gap: 0.8rem;
 }
 
 .App-form input,
@@ -120,56 +150,67 @@ h4 {
   font-size: 1.6rem;
 }
 
+/* The chart canvas asks for Plex Mono by name, and a web font only downloads
+   once the page renders it, so this field has to keep using it. */
 .App-form input {
   flex: 1;
   min-width: 0;
-  border: 0.1rem solid var(--input-border);
-  border-right: 0;
-  border-radius: 0.4rem 0 0 0.4rem;
-  padding: 0.6rem 1rem;
+  border: 0.1rem solid var(--border);
+  border-radius: 0.8rem;
+  padding: 0 1.2rem;
   min-height: 4.8rem;
-  color: var(--input-text);
-  background-color: var(--bg);
+  font-family: "IBM Plex Mono", monospace;
+  color: var(--text);
+  background-color: var(--input-bg);
+}
+
+.App-form input::placeholder {
+  color: var(--text-muted);
+  opacity: 1;
+}
+
+.App-form input:focus {
+  outline-offset: -0.1rem;
 }
 
 button {
   min-height: 4.8rem;
   line-height: 1.4;
-  padding: 0 1rem;
+  padding: 0 1.6rem;
   white-space: nowrap;
   background-color: var(--button-bg);
-  border: 0.1rem solid var(--button-bg);
-  border-radius: 0.4rem;
+  border: 0;
+  border-radius: 0.8rem;
   color: var(--button-text);
-  font-size: 0.8em;
+  font-weight: 500;
   cursor: pointer;
+  transition: background-color 0.1s;
+}
+
+button:hover:enabled {
+  background-color: var(--button-hover);
 }
 
 input:focus,
 button:focus-visible,
 a:focus-visible {
   outline: 2px solid var(--button-bg);
-  outline-offset: 3px;
+  outline-offset: 2px;
 }
 
 button:disabled {
-  background-color: var(--button-disabled);
-  border: 0.1rem solid var(--button-disabled-border);
+  opacity: 0.5;
   cursor: not-allowed;
 }
 
 .App-form button {
   flex: none;
-  border-radius: 0 0.4rem 0.4rem 0;
 }
 
 .App-buttons {
   display: flex;
-  align-items: center;
-  justify-content: center;
   flex-wrap: wrap;
   gap: 0.8rem;
-  margin-bottom: 2rem;
 }
 
 .App-download-button {
@@ -178,100 +219,113 @@ button:disabled {
   align-items: center;
   gap: 0.6rem;
   min-height: 4.4rem;
-  padding: 0.8rem 1rem;
-  border-radius: 0.8rem;
+  padding: 0 1.4rem;
   font-size: 1.4rem;
 }
 
 .App-themes {
-  border: 1px solid var(--button-disabled-border);
-  border-radius: 0.4rem;
+  border: 0;
   min-width: 0;
-  margin: 0 0 1rem;
-  padding: 1rem;
+  margin: 0;
+  padding: 0;
 }
 
 .App-themes legend {
-  padding: 0 1rem;
-  font-size: 1.2rem;
-  text-transform: uppercase;
+  padding: 0;
+  font-size: 1.4rem;
+  font-weight: 500;
 }
 
 .App-themes-list {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
-  gap: 0.5rem;
+  column-gap: 1.6rem;
 }
 
 .App-themes label {
   display: flex;
   align-items: center;
-  gap: 0.8rem;
+  gap: 1rem;
   min-width: 0;
-  min-height: 4.8rem;
-  padding: 0.8rem;
+  min-height: 4.4rem;
   font-size: 1.4rem;
   text-align: left;
   cursor: pointer;
 }
 
+/* Native radios ignore border-radius in Safari and Chrome, which leaves their
+   focus outline square, so these draw their own circle. */
 .App-themes label input {
   flex: none;
+  appearance: none;
   width: 1.6rem;
   height: 1.6rem;
   margin: 0;
-  accent-color: var(--button-bg);
+  border: 0.1rem solid var(--text-muted);
+  border-radius: 50%;
+  background-color: var(--input-bg);
+}
+
+.App-themes label input:checked {
+  border: 0.5rem solid var(--button-bg);
+  background-color: var(--button-text);
 }
 
 .Theme-preview {
-  width: 22px;
-  height: 22px;
   flex: none;
-  display: flex;
-  flex-wrap: wrap;
-  padding: 2px;
-  border-radius: 2px;
-  box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.2rem;
+  width: 2.6rem;
+  height: 2.6rem;
+  padding: 0.3rem;
+  border-radius: 0.4rem;
+  outline: 0.1rem solid var(--border);
+  outline-offset: -0.1rem;
 }
 
 .Theme-preview span {
-  display: block;
-  width: 9px;
-  height: 9px;
+  border-radius: 0.1rem;
+}
+
+.App-github-button {
+  min-height: 2.8rem;
+  margin-top: 1.6rem;
 }
 
 footer {
+  margin-top: auto;
+  padding-top: 2.4rem;
   font-size: 1.2rem;
+  color: var(--text-muted);
+}
+
+footer p {
+  margin: 0 0 0.4rem;
 }
 
 footer a {
+  color: inherit;
+  text-underline-offset: 0.2em;
+}
+
+footer a:hover {
   color: var(--text);
-  text-decoration: none;
 }
 
 @media all and (max-width: 500px) {
   .App-header {
-    padding: 1rem;
-    font-size: 0.9em;
+    padding: 2.4rem 1.6rem;
   }
 
   .App-form {
     flex-direction: column;
-    margin-bottom: 2rem;
   }
 
   .App-form input,
   .App-form button {
     flex: none;
     width: 100%;
-    padding: 1rem;
-    border-radius: 0.4rem;
-  }
-
-  .App-form input {
-    border-right: 0.1rem solid var(--input-border);
-    margin-bottom: 0.5rem;
-    text-align: center;
   }
 }
 
@@ -280,11 +334,26 @@ footer a {
     display: block;
     height: auto;
     min-height: 100vh;
-    text-align: center;
   }
 
-  .App-header,
-  .App-content {
+  .App-header {
+    border-right: 0;
+    border-bottom: 0.1rem solid var(--border);
     overflow-y: visible;
+  }
+
+  /* Padding moves inward so an empty section collapses to nothing here. */
+  .App-content {
+    padding: 0;
+    overflow-y: visible;
+  }
+
+  .App-centered,
+  .App-result {
+    padding: 2.4rem 1.6rem;
+  }
+
+  .App-empty {
+    display: none;
   }
 }

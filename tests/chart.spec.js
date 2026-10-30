@@ -88,6 +88,8 @@ test("theme group supports keyboard selection and visible focus", async ({
   await expect(classic).toBeChecked();
   await expect(classic).toBeFocused();
   await expect(classic).toHaveCSS("outline-style", "solid");
+  // Native radios drop border-radius in Safari and Chrome, squaring the outline.
+  await expect(classic).toHaveCSS("border-radius", "50%");
   await expect(page.locator('meta[name="viewport"]')).toHaveAttribute(
     "content",
     "width=device-width, initial-scale=1"
@@ -137,6 +139,38 @@ test("generates, redraws every theme, and exports PNG and JSON", async ({
     contributions
   );
   expect(errors).toEqual([]);
+});
+
+test("page follows the system color scheme without a reload", async ({
+  page
+}) => {
+  const html = page.locator("html");
+  await page.emulateMedia({ colorScheme: "dark" });
+  await expect(html).toHaveCSS("background-color", "rgb(13, 17, 23)");
+  await page.emulateMedia({ colorScheme: "light" });
+  await expect(html).toHaveCSS("background-color", "rgb(246, 248, 250)");
+});
+
+test("star button script swaps its link without a hydration mismatch", async ({
+  page
+}) => {
+  const errors = [];
+  page.on("console", (message) => {
+    if (message.type() === "error") errors.push(message.text());
+  });
+  page.on("pageerror", (error) => errors.push(error.message));
+  await page.route("https://buttons.github.io/**", (route) =>
+    route.fulfill({
+      contentType: "text/javascript",
+      body: `document
+        .querySelector(".github-button")
+        .replaceWith(document.createElement("span"));`
+    })
+  );
+  await page.reload();
+  await expect(page.locator(".github-button")).toHaveCount(0);
+  await expect(page.locator(".App-github-button span")).toHaveCount(1);
+  expect(errors.filter((error) => /hydrat|react/i.test(error))).toEqual([]);
 });
 
 test("shows a missing profile error and allows another attempt", async ({

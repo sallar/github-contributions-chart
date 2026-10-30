@@ -17,7 +17,16 @@ const App = ({ Component, pageProps }) => (
       />
     </Head>
     <Component {...pageProps} />
-    <Toaster position="bottom-right" />
+    <Toaster
+      position="bottom-right"
+      toastOptions={{
+        style: {
+          background: "var(--header-bg)",
+          color: "var(--text)",
+          border: "0.1rem solid var(--border)"
+        }
+      }}
+    />
     <Analytics />
   </>
 );
