@@ -1,4 +1,4 @@
-import { TbBrandTwitter, TbShare, TbDownload, TbCopy } from "react-icons/tb";
+import { TbShare, TbDownload, TbCopy } from "react-icons/tb";
 import React, { useRef, useState, useEffect } from "react";
 import {
   download,
@@ -11,7 +11,6 @@ import {
 import ThemeSelector from "../components/themes";
 
 const App = () => {
-  const inputRef = useRef();
   const canvasRef = useRef();
   const contentRef = useRef();
   const [loading, setLoading] = useState(false);
@@ -168,16 +167,22 @@ const App = () => {
 
   const _renderForm = () => {
     return (
-      <form onSubmit={handleSubmit}>
+      <form className="App-form" onSubmit={handleSubmit}>
+        <label className="visually-hidden" htmlFor="username">
+          GitHub username
+        </label>
         <input
-          ref={inputRef}
           placeholder="Your GitHub Username"
           onChange={(e) => setUsername(e.target.value)}
           value={username}
           id="username"
+          name="username"
+          type="text"
+          required
+          spellCheck={false}
+          autoComplete="off"
           autoCorrect="off"
           autoCapitalize="none"
-          autoFocus
         />
         <button type="submit" disabled={username.length <= 0 || loading}>
           <span role="img" aria-label="Stars">
@@ -191,7 +196,7 @@ const App = () => {
 
   const _renderError = () => {
     return (
-      <div className="App-error App-centered">
+      <div className="App-error App-centered" role="alert">
         <p>{error}</p>
       </div>
     );
@@ -213,7 +218,12 @@ const App = () => {
     <div className="App">
       <header className="App-header">
         <div className="App-logo">
-          <img src="/topguntocat.png" width={224} height={111} alt="Topguntocat" />
+          <img
+            src="/topguntocat.png"
+            width={224}
+            height={111}
+            alt="Topguntocat"
+          />
           <h1>GitHub Contributions Chart Generator</h1>
           <h4>All your contributions in one image!</h4>
         </div>

@@ -19,7 +19,7 @@
     --input-border: rgb(55, 68, 75);
     --button-disabled: rgb(42, 52, 57);
     --button-disabled-border: var(--input-border);
-    --loading-text: #rgb(164, 157, 145);
+    --loading-text: rgb(164, 157, 145);
     --input-text: #fff;
   }
 }
@@ -27,11 +27,12 @@
 html {
   color: var(--text);
   background-color: var(--bg);
+  color-scheme: light dark;
 }
 
 .App {
   display: grid;
-  grid-template-columns: 40rem 1fr;
+  grid-template-columns: 40rem minmax(0, 1fr);
   height: 100vh;
 }
 
@@ -107,33 +108,28 @@ h4 {
   margin-top: 1em;
 }
 
-h6 {
-  text-transform: uppercase;
-  font-weight: 600;
-  margin: 2rem 0 0 0;
-}
-
-form {
+.App-form {
   margin: 2em 0 1em;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-input {
+.App-form input {
+  flex: 1;
+  min-width: 0;
   border: 0.1rem solid var(--input-border);
   border-right: 0;
-  border-radius: 0.4rem;
+  border-radius: 0.4rem 0 0 0.4rem;
   padding: 0.6rem 1rem;
-  height: 4rem;
-  outline: none;
+  min-height: 4.8rem;
   color: var(--input-text);
   background-color: var(--bg);
 }
 
 button {
-  height: 4rem;
-  line-height: 4rem;
+  min-height: 4.8rem;
+  line-height: 1.4;
   padding: 0 1rem;
   white-space: nowrap;
   background-color: var(--button-bg);
@@ -141,13 +137,18 @@ button {
   border-radius: 0.4rem;
   color: var(--button-text);
   font-size: 0.8em;
-  outline: none;
   cursor: pointer;
 }
 
 .App-content button {
-  height: 3rem;
   padding: 0 2rem;
+}
+
+input:focus,
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--button-bg);
+  outline-offset: 3px;
 }
 
 button:disabled {
@@ -156,12 +157,8 @@ button:disabled {
   cursor: not-allowed;
 }
 
-form input {
-  width: 30rem;
-  border-radius: 0.4rem 0 0 0.4rem;
-}
-
-form button {
+.App-form button {
+  flex: none;
   border-radius: 0 0.4rem 0.4rem 0;
 }
 
@@ -169,59 +166,77 @@ form button {
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
   margin-bottom: 2rem;
 }
 
 .App-download-button {
-  min-height: 2rem;
-  line-height: 2rem;
-  margin: 0 1rem;
-  margin-right: 0.5rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 7px;
 }
 
-.App-themes label {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-}
-
 .App-themes {
   border: 1px solid var(--button-disabled-border);
   border-radius: 0.4rem;
-  margin-bottom: 1rem;
-  padding: 1rem 1rem 2rem;
+  min-width: 0;
+  margin: 0 0 1rem;
+  padding: 1rem;
 }
 
-.App-themes h6 {
-  margin: -2rem 0 1rem;
-}
-
-.App-themes h6 span {
-  background-color: var(--header-bg);
+.App-themes legend {
   padding: 0 1rem;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+}
+
+.App-themes-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+  gap: 0.5rem;
 }
 
 .App-themes label {
-  margin: 0 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  min-width: 0;
+  min-height: 4.8rem;
+  padding: 0.8rem;
+  border: 1px solid transparent;
+  border-radius: 0.4rem;
+  font-size: 1.4rem;
+  text-align: left;
   cursor: pointer;
 }
 
+.App-themes label:hover {
+  background-color: var(--bg);
+}
+
+.App-themes label:has(input:checked) {
+  background-color: var(--bg);
+  border-color: var(--button-bg);
+}
+
 .App-themes label input {
-  margin-right: 0.5rem;
+  flex: none;
+  width: 1.6rem;
+  height: 1.6rem;
+  margin: 0;
+  accent-color: var(--button-bg);
 }
 
 .Theme-preview {
   width: 22px;
   height: 22px;
+  flex: none;
   display: flex;
   flex-wrap: wrap;
   padding: 2px;
   border-radius: 2px;
-  margin: 0 1rem;
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
 }
 
@@ -246,21 +261,22 @@ footer a {
     font-size: 0.9em;
   }
 
-  form {
+  .App-form {
     flex-direction: column;
     margin-bottom: 2rem;
   }
 
-  form input,
-  form button {
+  .App-form input,
+  .App-form button {
+    flex: none;
     width: 100%;
-    height: 4rem;
-    line-height: 4rem;
-    padding: 0;
+    padding: 1rem;
     border-radius: 0.4rem;
   }
 
-  form input {
+  .App-form input {
+    border-right: 0.1rem solid var(--input-border);
+    font-size: 1.6rem;
     margin-bottom: 0.5rem;
     text-align: center;
   }
@@ -273,15 +289,13 @@ footer a {
 @media all and (max-width: 970px) {
   .App {
     display: block;
+    height: auto;
+    min-height: 100vh;
     text-align: center;
   }
 
-  form input {
-    flex: 1;
-  }
-
-  .App-themes-list {
-    display: flex;
-    flex-wrap: wrap;
+  .App-header,
+  .App-content {
+    overflow-y: visible;
   }
 }

@@ -56,10 +56,6 @@ export default class extends Document {
             content="#111517"
             media="(prefers-color-scheme: dark)"
           />
-          <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1, maximum-scale=1"
-          />
         </Head>
         <body>
           <Main />

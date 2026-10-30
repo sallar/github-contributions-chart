@@ -3,20 +3,23 @@
   "description": "Generate an image of all your GitHub contributions",
   "version": "2.0.0",
   "engines": {
-    "node": ">=16"
+    "node": "24.x"
   },
   "dependencies": {
-    "@vercel/analytics": "^0.1.6",
-    "cheerio": "^1.0.0-rc.3",
+    "@vercel/analytics": "^2.0.1",
+    "cheerio": "^1.2.0",
     "github-contributions-canvas": "^0.8.0",
-    "lodash": "^4.17.19",
-    "next": "^13.1.1",
+    "lodash": "^4.18.1",
+    "next": "^16.4.3",
     "normalize.css": "^8.0.1",
-    "prop-types": "^15.7.2",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-hot-toast": "^2.4.0",
-    "react-icons": "^4.7.1"
+    "prop-types": "^15.8.1",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "react-hot-toast": "^2.6.1",
+    "react-icons": "^5.7.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.64.1"
   },
   "license": "MIT",
   "bugs": {
@@ -26,6 +29,9 @@
   "scripts": {
     "start": "next start",
     "build": "next build",
-    "dev": "next dev"
-  }
+    "dev": "next dev",
+    "test:api": "node --test tests/api.test.mjs",
+    "test": "playwright test"
+  },
+  "packageManager": "yarn@1.22.22"
 }

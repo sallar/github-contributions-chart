@@ -10,6 +10,7 @@ const App = ({ Component, pageProps }) => (
   <>
     <Head>
       <title>GitHub Contributions Chart Generator</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
       <meta
         name="description"
         content="See all of your GitHub contributions in one image!"

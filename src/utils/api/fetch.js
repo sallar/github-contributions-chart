@@ -1,4 +1,4 @@
-import cheerio from "cheerio";
+import { load } from "cheerio";
 import _ from "lodash";
 
 const COLOR_MAP = {
@@ -16,7 +16,7 @@ async function fetchYears(username) {
     }
   });
   const body = await data.text();
-  const $ = cheerio.load(body);
+  const $ = load(body);
   return $(".js-year-link.filter-item")
     .get()
     .map((a) => {
@@ -39,10 +39,15 @@ async function fetchDataForYear(url, year, format) {
       "x-requested-with": "XMLHttpRequest"
     }
   });
-  const $ = cheerio.load(await data.text());
+  const $ = load(await data.text());
   const $days = $(
     "table.ContributionCalendar-grid td.ContributionCalendar-day"
   );
+  // Calendar rows are weekdays, so DOM order is not chronological.
+  const dates = $days
+    .get()
+    .map((day) => $(day).attr("data-date"))
+    .sort();
 
   const contribText = $(".js-yearly-contributions h2")
     .text()
@@ -58,8 +63,8 @@ async function fetchDataForYear(url, year, format) {
     year,
     total: contribCount || 0,
     range: {
-      start: $($days.get(0)).attr("data-date"),
-      end: $($days.get($days.length - 1)).attr("data-date")
+      start: dates[0],
+      end: dates[dates.length - 1]
     },
     contributions: (() => {
       const parseDay = (day, index) => {
@@ -111,7 +116,7 @@ export async function fetchDataForAllYears(username, format) {
       })(),
       contributions:
         format === "nested"
-          ? resp.reduce((acc, curr) => _.merge(acc, curr.contributions))
+          ? resp.reduce((acc, curr) => _.merge(acc, curr.contributions), {})
           : resp
               .reduce((list, curr) => [...list, ...curr.contributions], [])
               .sort((a, b) => {
