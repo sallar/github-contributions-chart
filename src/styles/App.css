@@ -145,10 +145,6 @@ button {
   cursor: pointer;
 }
 
-.App-content button {
-  padding: 0 2rem;
-}
-
 input:focus,
 button:focus-visible,
 a:focus-visible {
@@ -172,15 +168,26 @@ button:disabled {
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 1rem;
+  gap: 0.8rem;
   margin-bottom: 2rem;
 }
 
 .App-download-button {
-  display: flex;
-  justify-content: space-between;
+  display: inline-flex;
+  justify-content: center;
   align-items: center;
-  gap: 7px;
+  gap: 0.6rem;
+  min-height: 4.4rem;
+  padding: 0.8rem 1rem;
+  background-color: transparent;
+  border-color: var(--input-border);
+  color: var(--text);
+  font-size: 1.4rem;
+}
+
+.App-download-button:hover {
+  background-color: var(--header-bg);
+  border-color: var(--text);
 }
 
 .App-themes {
@@ -272,10 +279,6 @@ footer a {
     border-right: 0.1rem solid var(--input-border);
     margin-bottom: 0.5rem;
     text-align: center;
-  }
-
-  .App-buttons button {
-    padding: 0 0.5rem;
   }
 }
 
