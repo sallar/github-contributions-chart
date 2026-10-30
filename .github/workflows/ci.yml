@@ -1,0 +1,31 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: yarn
+      - run: corepack enable
+      - run: yarn install --frozen-lockfile
+      - run: yarn test:api
+      - run: yarn playwright install --with-deps chromium webkit
+      - run: yarn build
+      - run: yarn test
+      - uses: actions/upload-artifact@v7
+        if: failure()
+        with:
+          name: browser-test-results
+          path: test-results/
+          retention-days: 7

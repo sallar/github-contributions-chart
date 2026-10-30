@@ -15,13 +15,14 @@ const availableThemes = {
   sunny: "Sunny",
   pink: "Pink",
   YlGnBu: "YlGnBu",
-  solarizedDark: 'Solarized Dark',
-  solarizedLight: 'Solarized Light'
+  solarizedDark: "Solarized Dark",
+  solarizedLight: "Solarized Light"
 };
 
 const Preview = ({ themeName }) => (
   <div
     className="Theme-preview"
+    aria-hidden="true"
     style={{ backgroundColor: themes[themeName].background }}
   >
     <span style={{ backgroundColor: themes[themeName].grade1 }}></span>
@@ -32,10 +33,8 @@ const Preview = ({ themeName }) => (
 );
 
 const ThemeSelector = ({ currentTheme, onChangeTheme }) => (
-  <div className="App-themes">
-    <h6>
-      <span>Select a theme:</span>
-    </h6>
+  <fieldset className="App-themes">
+    <legend>Select a theme</legend>
     <div className="App-themes-list">
       {Object.keys(availableThemes).map((themeName) => (
         <label key={themeName}>
@@ -47,11 +46,11 @@ const ThemeSelector = ({ currentTheme, onChangeTheme }) => (
             onChange={() => onChangeTheme(themeName)}
           />
           <Preview themeName={themeName} />
-          {availableThemes[themeName]}
+          <span>{availableThemes[themeName]}</span>
         </label>
       ))}
     </div>
-  </div>
+  </fieldset>
 );
 
 ThemeSelector.propTypes = {

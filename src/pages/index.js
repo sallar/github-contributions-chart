@@ -1,4 +1,5 @@
-import { TbBrandTwitter, TbShare, TbDownload, TbCopy } from "react-icons/tb";
+import { TbShare, TbDownload, TbCopy } from "react-icons/tb";
+import Script from "next/script";
 import React, { useRef, useState, useEffect } from "react";
 import {
   download,
@@ -11,7 +12,6 @@ import {
 import ThemeSelector from "../components/themes";
 
 const App = () => {
-  const inputRef = useRef();
   const canvasRef = useRef();
   const contentRef = useRef();
   const [loading, setLoading] = useState(false);
@@ -101,10 +101,13 @@ const App = () => {
           href="https://github.com/sallar/github-contributions-chart"
           data-size="large"
           data-show-count="true"
+          data-color-scheme="no-preference: light; light: light; dark: dark;"
           aria-label="Star sallar/github-contribution-chart on GitHub"
         >
           Star
         </a>
+        {/* Replaces the link above, so it has to load after hydration. */}
+        <Script src="https://buttons.github.io/buttons.js" />
       </div>
     );
   };
@@ -126,37 +129,38 @@ const App = () => {
         className="App-result"
         style={{ display: data !== null && !loading ? "block" : "none" }}
       >
-        <p>Your chart is ready!</p>
-
         {data !== null && (
           <>
-            <div className="App-buttons">
-              <button
-                className="App-download-button"
-                onClick={onCopy}
-                type="button"
-              >
-                <TbCopy size={18} />
-                Copy
-              </button>
-              <button
-                className="App-download-button"
-                onClick={onDownload}
-                type="button"
-              >
-                <TbDownload size={18} />
-                Download
-              </button>
-              {global.navigator && "share" in navigator && (
+            <div className="App-result-header">
+              <p>Your chart is ready!</p>
+              <div className="App-buttons">
                 <button
                   className="App-download-button"
-                  onClick={onShare}
+                  onClick={onCopy}
                   type="button"
                 >
-                  <TbShare size={18} />
-                  Share
+                  <TbCopy size={18} />
+                  Copy
                 </button>
-              )}
+                <button
+                  className="App-download-button"
+                  onClick={onDownload}
+                  type="button"
+                >
+                  <TbDownload size={18} />
+                  Download
+                </button>
+                {global.navigator && "share" in navigator && (
+                  <button
+                    className="App-download-button"
+                    onClick={onShare}
+                    type="button"
+                  >
+                    <TbShare size={18} />
+                    Share
+                  </button>
+                )}
+              </div>
             </div>
 
             <canvas ref={canvasRef} />
@@ -168,21 +172,24 @@ const App = () => {
 
   const _renderForm = () => {
     return (
-      <form onSubmit={handleSubmit}>
+      <form className="App-form" onSubmit={handleSubmit}>
+        <label className="visually-hidden" htmlFor="username">
+          GitHub username
+        </label>
         <input
-          ref={inputRef}
           placeholder="Your GitHub Username"
           onChange={(e) => setUsername(e.target.value)}
           value={username}
           id="username"
+          name="username"
+          type="text"
+          required
+          spellCheck={false}
+          autoComplete="off"
           autoCorrect="off"
           autoCapitalize="none"
-          autoFocus
         />
         <button type="submit" disabled={username.length <= 0 || loading}>
-          <span role="img" aria-label="Stars">
-            ✨
-          </span>{" "}
           {loading ? "Generating..." : "Generate!"}
         </button>
       </form>
@@ -191,8 +198,17 @@ const App = () => {
 
   const _renderError = () => {
     return (
-      <div className="App-error App-centered">
+      <div className="App-error App-centered" role="alert">
         <p>{error}</p>
+      </div>
+    );
+  };
+
+  const _renderEmpty = () => {
+    if (loading || error !== null || data !== null) return;
+    return (
+      <div className="App-empty App-centered">
+        <p>Your chart will show up here.</p>
       </div>
     );
   };
@@ -201,9 +217,6 @@ const App = () => {
     if (data === null) return;
     return (
       <a href="#" onClick={onDownloadJson}>
-        <span role="img" aria-label="Bar Chart">
-          📊
-        </span>{" "}
         Download data as JSON for your own visualizations
       </a>
     );
@@ -213,7 +226,12 @@ const App = () => {
     <div className="App">
       <header className="App-header">
         <div className="App-logo">
-          <img src="/topguntocat.png" width={224} height={111} alt="Topguntocat" />
+          <img
+            src="/topguntocat.png"
+            width={224}
+            height={111}
+            alt="Topguntocat"
+          />
           <h1>GitHub Contributions Chart Generator</h1>
           <h4>All your contributions in one image!</h4>
         </div>
@@ -243,6 +261,7 @@ const App = () => {
         </footer>
       </header>
       <section className="App-content" ref={contentRef}>
+        {_renderEmpty()}
         {loading && _renderLoading()}
         {error !== null && _renderError()}
         {_renderGraphs()}

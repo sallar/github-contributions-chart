@@ -8,16 +8,18 @@ The drawing mechanism lives in [the sallar/github-contributions-canvas repositor
 
 ## Requirements
 
+- Node.js 24 (see `.nvmrc`) and Yarn 1.22.22.
 - A valid github account.
 - Open activity in setting (`Settings` > `Public profile` > `Contributions & Activity`).
   - [ ] Make profile private and hide activity
 
 ## Install
 
-Install the packages using [NPM](https://nodejs.org/en/):
+Enable Yarn with Corepack and install the locked dependencies:
 
 ```
-$ npm install
+$ corepack enable
+$ yarn install --frozen-lockfile
 ```
 
 ## How to run
@@ -25,12 +27,36 @@ $ npm install
 Running locally:
 
 ```
-$ npm run dev
+$ yarn dev
 ```
 
 ## Deployment
 
-This project is deployed on [Vercel](https://vercel.com/).
+This project is deployed on [Vercel](https://vercel.com/). The Node.js runtime is
+pinned to 24.x in `package.json`.
+
+Build and run the production server locally:
+
+```
+$ yarn build
+$ yarn start
+```
+
+## Tests
+
+Browser checks cover responsive controls, keyboard theme selection, chart rendering,
+PNG/JSON downloads, and missing profiles in Chromium and mobile WebKit, in light and dark mode.
+Contribution responses are fixtures so the checks do not depend on GitHub availability.
+API tests verify calendar date ranges and flat/nested JSON using HTML fixtures.
+
+```
+$ yarn playwright install --with-deps chromium webkit
+$ yarn test:api
+$ yarn build
+$ yarn test
+```
+
+CI runs the same production build and browser checks on pull requests.
 
 ## Adding themes
 
