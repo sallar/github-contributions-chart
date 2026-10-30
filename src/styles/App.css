@@ -179,15 +179,8 @@ button:disabled {
   gap: 0.6rem;
   min-height: 4.4rem;
   padding: 0.8rem 1rem;
-  background-color: transparent;
-  border-color: var(--input-border);
-  color: var(--text);
+  border-radius: 0.8rem;
   font-size: 1.4rem;
-}
-
-.App-download-button:hover {
-  background-color: var(--header-bg);
-  border-color: var(--text);
 }
 
 .App-themes {
